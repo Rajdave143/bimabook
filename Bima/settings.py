@@ -135,7 +135,7 @@ STATIC_URL = 'static/'
 
 
 STATICFILES_DIRS = [
-    BASE_DIR / "bima_policy/static/",  
+    BASE_DIR / 'static',  
 ]
 
 STATIC_ROOT = BASE_DIR/'staticfiles'

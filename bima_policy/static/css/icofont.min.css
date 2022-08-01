@@ -1,3 +1,4 @@
+
 /*! 
 * @package IcoFont 
 * @version 1.0.1 
@@ -9,11 +10,10 @@
     font-family: IcoFont;
     font-weight: 400;
     font-style: Regular;
-    src: url(icofont.woff2) format("woff2"), url(icofont.woff) format("woff")
+    src: url(fonts/icofont.woff2) format("woff2"), url(fonts/icofont.woff2) format("woff")
 }
 
-[class*=" icofont-"],
-[class^=icofont-] {
+[class*=" icofont-"], [class^=icofont-] {
     font-family: IcoFont !important;
     speak: none;
     font-style: normal;
@@ -8573,11 +8573,7 @@
     transform: scale(-1, -1)
 }
 
-:root .icofont-flip-horizontal,
-:root .icofont-flip-vertical,
-:root .icofont-rotate-180,
-:root .icofont-rotate-270,
-:root .icofont-rotate-90 {
+:root .icofont-flip-horizontal, :root .icofont-flip-vertical, :root .icofont-rotate-180, :root .icofont-rotate-270, :root .icofont-rotate-90 {
     -webkit-filter: none;
     filter: none;
     display: inline-block
@@ -8598,8 +8594,7 @@
     width: 1px
 }
 
-.sr-only-focusable:active,
-.sr-only-focusable:focus {
+.sr-only-focusable:active, .sr-only-focusable:focus {
     clip: auto;
     height: auto;
     margin: 0;

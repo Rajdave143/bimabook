@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import bima_user
+from .models import *
 
 # Register your models here.
 
-admin.site.register(bima_user)
+# admin.site.register(bima_user)
+admin.site.register(profile)

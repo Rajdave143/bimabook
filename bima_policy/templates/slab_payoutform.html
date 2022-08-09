@@ -1,0 +1,538 @@
+{%extends "base.html"%}
+{%block content%}
+{% load static %}
+<main class="app-main">
+   <!-- .wrapper -->
+   <div class="wrapper">
+      <!-- .page -->
+      <div class="page">
+         <!-- .page-inner -->
+         <div class="page-inner">
+            <!-- .page-title-bar -->
+            <header class="page-title-bar">
+               <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                     <li class="breadcrumb-item">
+                        <a href="slabs.php"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Payout Slabs</a>
+                     </li>
+                     <li class="breadcrumb-item">
+                        <a href="slabs.php?slab=SHUBHAM">SHUBHAM</a>
+                     </li>
+                     <li class="breadcrumb-item active">
+                        <a href="javascript:void();">New Payout</a>
+                     </li>
+                  </ol>
+               </nav>
+               <h1 class="page-title"> Payout Form <small class="text-muted">All * marks Fields are mandatory. </small></h1>
+            </header>
+            <!-- .page-section -->
+            <div class="page-section">
+               <!-- .section-block -->
+               <div class="section-block">
+                  <!-- page content goes here -->
+                  <form name="frmpayout" method="post" autocomplete="off" data-parsley-validate="true" novalidate="">
+                     <div class="row">
+                        <div class="col-lg-9 col-md-9 col-sm-12">
+                           <div class="card">
+                              <!-- .card -->
+                              <div class="card-body">
+                                 <!-- .card-body -->
+                                 <!-- .content -->
+                                 <fieldset>
+                                    <!-- fieldset -->
+                                    <legend class="mb-2">Payout Details</legend>
+                                    <div class="form-row">
+                                       <div class="col-md-6 mb-3">
+                                          <label>Payout Name <abbr title="Required" class="text-danger">*</abbr></label>
+                                          <input type="text" name="payout_name" value="" data-parsley-required="true" class="form-control" placeholder="All RTO of HR except GGN &amp; FDB"> 
+                                       </div>
+                                       <div class="col-md-3 mb-3">
+                                          <input type="hidden" value="0" required="" name="payout_id" readonly="">
+                                          <label>Slab <abbr title="Required" class="text-danger">*</abbr></label>
+                                          <select name="slab" id="slab" data-parsley-required="true" data-parsley-required-message="" class="custom-select">
+                                             <option value="">Select</option>
+                                             <option value="25" selected="">SHUBHAM</option>
+                                             <option value="24">RUPALI</option>
+                                             <option value="23">RUPN</option>
+                                             <option value="22">SLABN</option>
+                                             <option value="21">SLAB A PLUS</option>
+                                             <option value="20">SLABA+</option>
+                                             <option value="19">GRADE B</option>
+                                             <option value="18">SANDEEP 10%</option>
+                                             <option value="16">AGENT LIST</option>
+                                             <option value="15">SPECIAL</option>
+                                             <option value="14">NORMAL</option>
+                                             <option value="13">SLAB A</option>
+                                             <option value="5">GENERAL A</option>
+                                          </select>
+                                       </div>
+                                       <div class="col-md-3 mb-3">
+                                          <label>Status <abbr title="Required" class="text-danger">*</abbr></label>
+                                          <select name="status" id="status" data-parsley-required="true" data-parsley-required-message="" class="custom-select">
+                                             <option value="1">Active</option>
+                                             <option value="0">In Active</option>
+                                          </select>
+                                       </div>
+                                    </div>
+                                    <hr class="mb-2 mt-2">
+                                    <div class="form-group">
+                                       <label class="d-block">Vehicle Category</label>
+                                       <div class="custom-control custom-control-inline custom-radio">
+                                          <input type="radio" value="Any" checked="" class="custom-control-input" name="is_vehicle_category" id="rbtvctgry1" data-parsley-multiple="is_vehicle_category"> <label class="custom-control-label" for="rbtvctgry1">Any</label>
+                                       </div>
+                                       <div class="custom-control custom-control-inline custom-radio">
+                                          <input type="radio" value="Custom" class="custom-control-input" name="is_vehicle_category" id="rbtvctgry2" data-parsley-multiple="is_vehicle_category"> <label class="custom-control-label" for="rbtvctgry2">Custom</label>
+                                       </div>
+                                       <div class="mt-1 d-none">
+                                          <div id="vehicle_category" class="filter-multi-select dropdown" tabindex="0">
+                                             <div class="viewbar form-control dropdown-toggle"><span class="placeholder">select</span><span class="selected-items"></span></div>
+                                             <div class="dropdown-menu">
+                                                <div class="filter dropdown-item"><input type="text" placeholder="Search" class="form-control"><button type="button" tabindex="-1">×</button></div>
+                                                <div class="items dropdown-item">
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]--1-chbx" name="vehicle_category[]" value="" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]--1-chbx" class="custom-control-label">Select All</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-0-chbx" name="vehicle_category[]" value="1" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-0-chbx" class="custom-control-label">2w-bike</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-1-chbx" name="vehicle_category[]" value="2" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-1-chbx" class="custom-control-label">2w-scooter</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-2-chbx" name="vehicle_category[]" value="3" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-2-chbx" class="custom-control-label">Auto Gcv</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-3-chbx" name="vehicle_category[]" value="4" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-3-chbx" class="custom-control-label">Auto Pcv 3+1</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-4-chbx" name="vehicle_category[]" value="5" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-4-chbx" class="custom-control-label">Auto Pcv 5+1</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-5-chbx" name="vehicle_category[]" value="6" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-5-chbx" class="custom-control-label">Comm (12t-20t)</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-6-chbx" name="vehicle_category[]" value="7" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-6-chbx" class="custom-control-label">Comm (20t-40t)</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-7-chbx" name="vehicle_category[]" value="8" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-7-chbx" class="custom-control-label">Comm (7.5t-12t)</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-8-chbx" name="vehicle_category[]" value="9" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-8-chbx" class="custom-control-label">Comm (above 40t)</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-9-chbx" name="vehicle_category[]" value="24" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-9-chbx" class="custom-control-label">E-rickshaw Gcv</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-10-chbx" name="vehicle_category[]" value="23" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-10-chbx" class="custom-control-label">E-rickshaw Pcv</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-11-chbx" name="vehicle_category[]" value="10" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-11-chbx" class="custom-control-label">Lcv (0-2.5t)</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-12-chbx" name="vehicle_category[]" value="11" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-12-chbx" class="custom-control-label">Lcv (2.5t-3.5t)</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-13-chbx" name="vehicle_category[]" value="12" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-13-chbx" class="custom-control-label">Lcv (3.5t-7.5t)</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-14-chbx" name="vehicle_category[]" value="13" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-14-chbx" class="custom-control-label">Non-motor</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-15-chbx" name="vehicle_category[]" value="14" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-15-chbx" class="custom-control-label">Other Miscd</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-16-chbx" name="vehicle_category[]" value="15" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-16-chbx" class="custom-control-label">Private Car</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-17-chbx" name="vehicle_category[]" value="16" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-17-chbx" class="custom-control-label">Route Bus</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-18-chbx" name="vehicle_category[]" value="27" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-18-chbx" class="custom-control-label">Rupali Car</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-19-chbx" name="vehicle_category[]" value="17" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-19-chbx" class="custom-control-label">School Bus</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-20-chbx" name="vehicle_category[]" value="18" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-20-chbx" class="custom-control-label">Staff Bus</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-21-chbx" name="vehicle_category[]" value="19" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-21-chbx" class="custom-control-label">Taxi 4+1</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-22-chbx" name="vehicle_category[]" value="20" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-22-chbx" class="custom-control-label">Taxi 6+1</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-23-chbx" name="vehicle_category[]" value="25" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-23-chbx" class="custom-control-label">Taxi 7-10</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-24-chbx" name="vehicle_category[]" value="21" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-24-chbx" class="custom-control-label">Taxi 9+1</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_category[]-25-chbx" name="vehicle_category[]" value="22" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_category[]-25-chbx" class="custom-control-label">Tractor</label></div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <hr class="mb-2 mt-2">
+                                    <div class="form-group">
+                                       <label class="d-block">Insurance Company</label>
+                                       <div class="custom-control custom-control-inline custom-radio">
+                                          <input type="radio" value="Any" checked="" class="custom-control-input" name="is_inscomp" id="rbtins1" data-parsley-multiple="is_inscomp"> <label class="custom-control-label" for="rbtins1">Any</label>
+                                       </div>
+                                       <div class="custom-control custom-control-inline custom-radio">
+                                          <input type="radio" value="Custom" class="custom-control-input" name="is_inscomp" id="rbtins2" data-parsley-multiple="is_inscomp"> <label class="custom-control-label" for="rbtins2">Custom</label>
+                                       </div>
+                                       <div class="mt-1 d-none">
+                                          <div id="ins_company" class="filter-multi-select dropdown" tabindex="0">
+                                             <div class="viewbar form-control dropdown-toggle"><span class="placeholder">select</span><span class="selected-items"></span></div>
+                                             <div class="dropdown-menu">
+                                                <div class="filter dropdown-item"><input type="text" placeholder="Search" class="form-control"><button type="button" tabindex="-1">×</button></div>
+                                                <div class="items dropdown-item">
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]--1-chbx" name="ins_company[]" value="" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]--1-chbx" class="custom-control-label">Select All</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-0-chbx" name="ins_company[]" value="1" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-0-chbx" class="custom-control-label">Acko</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-1-chbx" name="ins_company[]" value="2" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-1-chbx" class="custom-control-label">Bajaj Allianz</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-2-chbx" name="ins_company[]" value="22" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-2-chbx" class="custom-control-label">Bharti Axa</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-3-chbx" name="ins_company[]" value="3" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-3-chbx" class="custom-control-label">Cholamandalam</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-4-chbx" name="ins_company[]" value="4" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-4-chbx" class="custom-control-label">Digit</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-5-chbx" name="ins_company[]" value="5" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-5-chbx" class="custom-control-label">Edelweiss</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-6-chbx" name="ins_company[]" value="6" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-6-chbx" class="custom-control-label">Future</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-7-chbx" name="ins_company[]" value="7" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-7-chbx" class="custom-control-label">Hdfc Ergo</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-8-chbx" name="ins_company[]" value="8" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-8-chbx" class="custom-control-label">Icici Lombard</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-9-chbx" name="ins_company[]" value="9" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-9-chbx" class="custom-control-label">Iffco Tokio</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-10-chbx" name="ins_company[]" value="19" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-10-chbx" class="custom-control-label">Kotak</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-11-chbx" name="ins_company[]" value="10" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-11-chbx" class="custom-control-label">Liberty</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-12-chbx" name="ins_company[]" value="11" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-12-chbx" class="custom-control-label">Magma</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-13-chbx" name="ins_company[]" value="23" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-13-chbx" class="custom-control-label">National</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-14-chbx" name="ins_company[]" value="12" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-14-chbx" class="custom-control-label">Navi</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-15-chbx" name="ins_company[]" value="13" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-15-chbx" class="custom-control-label">New India</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-16-chbx" name="ins_company[]" value="20" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-16-chbx" class="custom-control-label">Raheja</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-17-chbx" name="ins_company[]" value="14" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-17-chbx" class="custom-control-label">Reliance</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-18-chbx" name="ins_company[]" value="15" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-18-chbx" class="custom-control-label">Royal Sundaram</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-19-chbx" name="ins_company[]" value="16" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-19-chbx" class="custom-control-label">Sbi General</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-20-chbx" name="ins_company[]" value="17" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-20-chbx" class="custom-control-label">Sgic</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-21-chbx" name="ins_company[]" value="18" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-21-chbx" class="custom-control-label">Tata Aig</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-22-chbx" name="ins_company[]" value="24" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-22-chbx" class="custom-control-label">United India</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="ins_company[]-23-chbx" name="ins_company[]" value="21" class="custom-control-input custom-checkbox" tabindex="-1"><label for="ins_company[]-23-chbx" class="custom-control-label">Universal Sompo</label></div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <hr class="mb-2 mt-2">
+                                    <div class="form-group">
+                                       <label class="d-block">Policy Provider</label>
+                                       <div class="custom-control custom-control-inline custom-radio">
+                                          <input type="radio" value="Any" checked="" class="custom-control-input" name="is_policy_provider" id="rbtplcprvdr1" data-parsley-multiple="is_policy_provider"> <label class="custom-control-label" for="rbtplcprvdr1">Any</label>
+                                       </div>
+                                       <div class="custom-control custom-control-inline custom-radio">
+                                          <input type="radio" value="Custom" class="custom-control-input" name="is_policy_provider" id="rbtplcprvdr2" data-parsley-multiple="is_policy_provider"> <label class="custom-control-label" for="rbtplcprvdr2">Custom</label>
+                                       </div>
+                                       <div class="mt-1 d-none">
+                                          <div id="policy_provider" class="filter-multi-select dropdown" tabindex="0">
+                                             <div class="viewbar form-control dropdown-toggle"><span class="placeholder">select</span><span class="selected-items"></span></div>
+                                             <div class="dropdown-menu">
+                                                <div class="filter dropdown-item"><input type="text" placeholder="Search" class="form-control"><button type="button" tabindex="-1">×</button></div>
+                                                <div class="items dropdown-item">
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="policy_provider[]--1-chbx" name="policy_provider[]" value="" class="custom-control-input custom-checkbox" tabindex="-1"><label for="policy_provider[]--1-chbx" class="custom-control-label">Select All</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="policy_provider[]-0-chbx" name="policy_provider[]" value="1" class="custom-control-input custom-checkbox" tabindex="-1"><label for="policy_provider[]-0-chbx" class="custom-control-label">BROKER</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="policy_provider[]-1-chbx" name="policy_provider[]" value="4" class="custom-control-input custom-checkbox" tabindex="-1"><label for="policy_provider[]-1-chbx" class="custom-control-label">Broker Indore</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="policy_provider[]-2-chbx" name="policy_provider[]" value="2" class="custom-control-input custom-checkbox" tabindex="-1"><label for="policy_provider[]-2-chbx" class="custom-control-label">PolicyBazaar</label></div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <hr class="mb-2 mt-2">
+                                    <div class="form-group">
+                                       <label class="d-block">Vehicle Make By</label>
+                                       <div class="custom-control custom-control-inline custom-radio">
+                                          <input type="radio" value="Any" checked="" class="custom-control-input" name="is_makeby" id="rbtmakeby1" data-parsley-multiple="is_makeby"> <label class="custom-control-label" for="rbtmakeby1">Any</label>
+                                       </div>
+                                       <div class="custom-control custom-control-inline custom-radio">
+                                          <input type="radio" value="Custom" class="custom-control-input" name="is_makeby" id="rbtmakeby2" data-parsley-multiple="is_makeby"> <label class="custom-control-label" for="rbtmakeby2">Custom</label>
+                                       </div>
+                                       <div class="mt-1 d-none">
+                                          <div id="vehicle_makeby" class="filter-multi-select dropdown" tabindex="0">
+                                             <div class="viewbar form-control dropdown-toggle"><span class="placeholder">select</span><span class="selected-items"></span></div>
+                                             <div class="dropdown-menu">
+                                                <div class="filter dropdown-item"><input type="text" placeholder="Search" class="form-control"><button type="button" tabindex="-1">×</button></div>
+                                                <div class="items dropdown-item">
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_makeby[]--1-chbx" name="vehicle_makeby[]" value="" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_makeby[]--1-chbx" class="custom-control-label">Select All</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_makeby[]-0-chbx" name="vehicle_makeby[]" value="1" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_makeby[]-0-chbx" class="custom-control-label">Any</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_makeby[]-1-chbx" name="vehicle_makeby[]" value="4" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_makeby[]-1-chbx" class="custom-control-label">Audi</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_makeby[]-2-chbx" name="vehicle_makeby[]" value="5" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_makeby[]-2-chbx" class="custom-control-label">Bmw</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_makeby[]-3-chbx" name="vehicle_makeby[]" value="3" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_makeby[]-3-chbx" class="custom-control-label">Eicher</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_makeby[]-4-chbx" name="vehicle_makeby[]" value="6" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_makeby[]-4-chbx" class="custom-control-label">Landrover</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_makeby[]-5-chbx" name="vehicle_makeby[]" value="2" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_makeby[]-5-chbx" class="custom-control-label">Mahindra</label></div>
+                                                   <div class="dropdown-item custom-control"><input type="checkbox" id="vehicle_makeby[]-6-chbx" name="vehicle_makeby[]" value="7" class="custom-control-input custom-checkbox" tabindex="-1"><label for="vehicle_makeby[]-6-chbx" class="custom-control-label">Mercedes</label></div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div id="vmsection" class="mt-3 d-none">
+                                          <label class="d-block">Vehicle Model</label>
+                                          <div class="custom-control custom-control-inline custom-radio">
+                                             <input type="radio" value="Any" checked="" class="custom-control-input" name="is_vehicle_model" id="rbtvmodel1" data-parsley-multiple="is_vehicle_model"> <label class="custom-control-label" for="rbtvmodel1">Any</label>
+                                          </div>
+                                          <div class="custom-control custom-control-inline custom-radio">
+                                             <input type="radio" value="Custom" class="custom-control-input" name="is_vehicle_model" id="rbtvmode2" data-parsley-multiple="is_vehicle_model"> <label class="custom-control-label" for="rbtvmode2">Custom</label>
+                                          </div>
+                                          <div class="mt-1 d-none">
+                                             <select name="vehicle_model[]" class="custom-select " id="vehicle_model">
+                                                <option value="Any">Nothing for select</option>
+                                             </select>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <hr class="mb-2 mt-2">
+                                    <legend class="mb-2">RTO's</legend>
+                                    <div class="custom-control custom-control-inline custom-checkbox">
+                                       <input type="checkbox" checked="" class="custom-control-input" id="autofillrto" data-parsley-multiple="autofillrto"> <label class="custom-control-label" for="autofillrto">RTO's Auto fill based on States</label>
+                                    </div>
+                                    <div class="form-group">
+                                       <label>State</label>
+                                       <div id="rtostates" class="filter-multi-select dropdown" tabindex="0">
+                                          <div class="viewbar form-control dropdown-toggle"><span class="placeholder">select</span><span class="selected-items"></span></div>
+                                          <div class="dropdown-menu">
+                                             <div class="filter dropdown-item"><input type="text" placeholder="Search" class="form-control"><button type="button" tabindex="-1">×</button></div>
+                                             <div class="items dropdown-item">
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]--1-chbx" name="rtostates[]" value="" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]--1-chbx" class="custom-control-label">Select All</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-0-chbx" name="rtostates[]" value="1" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-0-chbx" class="custom-control-label">Andama And Nicobar Island</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-1-chbx" name="rtostates[]" value="2" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-1-chbx" class="custom-control-label">Andhra Pradesh</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-2-chbx" name="rtostates[]" value="3" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-2-chbx" class="custom-control-label">Arunachal Pradesh</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-3-chbx" name="rtostates[]" value="4" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-3-chbx" class="custom-control-label">Assam</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-4-chbx" name="rtostates[]" value="5" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-4-chbx" class="custom-control-label">Bihar</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-5-chbx" name="rtostates[]" value="7" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-5-chbx" class="custom-control-label">Chandigarh</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-6-chbx" name="rtostates[]" value="6" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-6-chbx" class="custom-control-label">Chattisgarh</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-7-chbx" name="rtostates[]" value="8" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-7-chbx" class="custom-control-label">Daman And Diu</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-8-chbx" name="rtostates[]" value="9" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-8-chbx" class="custom-control-label">Delhi</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-9-chbx" name="rtostates[]" value="10" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-9-chbx" class="custom-control-label">Goa</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-10-chbx" name="rtostates[]" value="11" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-10-chbx" class="custom-control-label">Gujrat</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-11-chbx" name="rtostates[]" value="13" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-11-chbx" class="custom-control-label">Haryana</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-12-chbx" name="rtostates[]" value="12" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-12-chbx" class="custom-control-label">Himachal Pradesh</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-13-chbx" name="rtostates[]" value="15" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-13-chbx" class="custom-control-label">Jammu And Kashmir</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-14-chbx" name="rtostates[]" value="14" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-14-chbx" class="custom-control-label">Jharkhand</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-15-chbx" name="rtostates[]" value="16" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-15-chbx" class="custom-control-label">Karnataka</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-16-chbx" name="rtostates[]" value="17" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-16-chbx" class="custom-control-label">Kerala</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-17-chbx" name="rtostates[]" value="19" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-17-chbx" class="custom-control-label">Lakshadweep</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-18-chbx" name="rtostates[]" value="18" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-18-chbx" class="custom-control-label">Leh</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-19-chbx" name="rtostates[]" value="23" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-19-chbx" class="custom-control-label">Madhya Pradesh</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-20-chbx" name="rtostates[]" value="20" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-20-chbx" class="custom-control-label">Maharashtra</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-21-chbx" name="rtostates[]" value="22" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-21-chbx" class="custom-control-label">Manipur</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-22-chbx" name="rtostates[]" value="21" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-22-chbx" class="custom-control-label">Meghalaya</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-23-chbx" name="rtostates[]" value="24" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-23-chbx" class="custom-control-label">Mizoram</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-24-chbx" name="rtostates[]" value="25" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-24-chbx" class="custom-control-label">Nagaland</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-25-chbx" name="rtostates[]" value="37" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-25-chbx" class="custom-control-label">NCR</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-26-chbx" name="rtostates[]" value="26" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-26-chbx" class="custom-control-label">Odisha</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-27-chbx" name="rtostates[]" value="28" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-27-chbx" class="custom-control-label">Puducherry</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-28-chbx" name="rtostates[]" value="27" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-28-chbx" class="custom-control-label">Punjab</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-29-chbx" name="rtostates[]" value="29" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-29-chbx" class="custom-control-label">Rajasthan</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-30-chbx" name="rtostates[]" value="30" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-30-chbx" class="custom-control-label">Sikkim</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-31-chbx" name="rtostates[]" value="31" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-31-chbx" class="custom-control-label">Tamil Nadu</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-32-chbx" name="rtostates[]" value="33" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-32-chbx" class="custom-control-label">Telangana</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-33-chbx" name="rtostates[]" value="32" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-33-chbx" class="custom-control-label">Tripura</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-34-chbx" name="rtostates[]" value="35" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-34-chbx" class="custom-control-label">Uttar Pradesh</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-35-chbx" name="rtostates[]" value="34" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-35-chbx" class="custom-control-label">Uttrakhand</label></div>
+                                                <div class="dropdown-item custom-control"><input type="checkbox" id="rtostates[]-36-chbx" name="rtostates[]" value="36" class="custom-control-input custom-checkbox" tabindex="-1"><label for="rtostates[]-36-chbx" class="custom-control-label">West Bengal</label></div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="form-group">
+                                       <label>RTOs<abbr title="Required" class="text-danger">*</abbr></label>
+                                       <div class="bootstrap-tagsinput"><input type="text" placeholder="eg: HR26"></div>
+                                       <input type="text" value="" class="form-control" onchange="$(this).parsley().validate();" data-parsley-required="true" id="rto" placeholder="eg: HR26" name="rto" data-role="tagsinput" style="display: none;">
+                                    </div>
+                                 </fieldset>
+                                 <p class="mb-1"></p>
+                              </div>
+                              <!-- /.card-body -->
+                           </div>
+                           <!-- /.card -->
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                           <div class="card">
+                              <!-- .card -->
+                              <div class="card-body">
+                                 <!-- .card-body -->
+                                 <h4 class="card-title mb-3">Payout General </h4>
+                                 <div class="row mb-2">
+                                    <label class="col-lg-4">Case Type <abbr title="Required" class="text-danger">*</abbr></label>
+                                    <div class="col-lg-8 pl-0 pr-0">
+                                       <div class="dropdown bootstrap-select show-tick" style="width: 100%;">
+                                          <select name="case_type[]" onchange="$(this).parsley().validate();" id="case_type" data-parsley-required="true" data-parsley-required-message="" data-toggle="selectpicker" data-actions-box="true" data-width="100%" multiple="" data-parsley-multiple="case_type[]" class="">
+                                             <option value="3">Breakin</option>
+                                             <option value="1">New</option>
+                                             <option value="2">Rollover</option>
+                                          </select>
+
+                                          <button type="button" tabindex="-1" class="custom-select dropdown-toggle bs-placeholder" data-toggle="dropdown" role="combobox" aria-owns="bs-select-1" aria-haspopup="listbox" aria-expanded="false" data-id="case_type" title="Nothing selected">
+                                             <div class="filter-option">
+                                                <div class="filter-option-inner">
+                                                   <div class="filter-option-inner-inner">Nothing selected</div>
+                                                </div>
+                                             </div> 
+                                          </button>
+                                       
+                                          <div class="dropdown-menu ">
+                                             <div class="dropdown-arrow"></div>
+                                             <div class="bs-actionsbox">
+                                                <div class="btn-group btn-group-sm btn-block"><button type="button" class="actions-btn bs-select-all btn btn-light">Select All</button><button type="button" class="actions-btn bs-deselect-all btn btn-light">Deselect All</button></div>
+                                             </div>
+                                             <div class="inner show" role="listbox" id="bs-select-1" tabindex="-1" aria-multiselectable="true">
+                                                <ul class="dropdown-menu inner show" role="presentation"></ul>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="row mb-2">
+                                    <label class="col-lg-4">Coverage <abbr title="Required" class="text-danger">*</abbr></label>
+                                    <div class="col-lg-8 pl-0 pr-0">
+                                       <div class="dropdown bootstrap-select show-tick" style="width: 100%;">
+                                          <select name="coverage[]" onchange="$(this).parsley().validate();" id="coverage" data-parsley-required="true" data-parsley-required-message="" data-toggle="selectpicker" data-actions-box="true" data-width="100%" multiple="" data-parsley-multiple="coverage[]" class="">
+                                             <option value="Comp">Comp</option>
+                                             <option value="SAOD">SAOD</option>
+                                             <option value="TP">TP</option>
+                                          </select>
+                                          <button type="button" tabindex="-1" class="custom-select dropdown-toggle bs-placeholder" data-toggle="dropdown" role="combobox" aria-owns="bs-select-2" aria-haspopup="listbox" aria-expanded="false" data-id="coverage" title="Nothing selected">
+                                             <div class="filter-option">
+                                                <div class="filter-option-inner">
+                                                   <div class="filter-option-inner-inner">Nothing selected</div>
+                                                </div>
+                                             </div>
+                                          </button>
+                                          <div class="dropdown-menu ">
+                                             <div class="dropdown-arrow"></div>
+                                             <div class="bs-actionsbox">
+                                                <div class="btn-group btn-group-sm btn-block"><button type="button" class="actions-btn bs-select-all btn btn-light">Select All</button><button type="button" class="actions-btn bs-deselect-all btn btn-light">Deselect All</button></div>
+                                             </div>
+                                             <div class="inner show" role="listbox" id="bs-select-2" tabindex="-1" aria-multiselectable="true">
+                                                <ul class="dropdown-menu inner show" role="presentation"></ul>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="row mb-2">
+                                    <label class="col-lg-4">Fuel Type <abbr title="Required" class="text-danger">*</abbr></label>
+                                    <div class="col-lg-8 pl-0 pr-0">
+                                       <div class="dropdown bootstrap-select show-tick" style="width: 100%;">
+                                          <select name="fuel_type[]" onchange="$(this).parsley().validate();" data-parsley-required="true" data-parsley-required-message="" data-toggle="selectpicker" data-actions-box="true" data-width="100%" multiple="" data-parsley-multiple="fuel_type[]" class="">
+                                             <option value="Petrol">Petrol</option>
+                                             <option value="Diesel">Diesel</option>
+                                             <option value="CNG">CNG</option>
+                                             <option value="Electric">Electric</option>
+                                          </select>
+                                          <button type="button" tabindex="-1" class="custom-select dropdown-toggle bs-placeholder" data-toggle="dropdown" role="combobox" aria-owns="bs-select-3" aria-haspopup="listbox" aria-expanded="false" title="Nothing selected">
+                                             <div class="filter-option">
+                                                <div class="filter-option-inner">
+                                                   <div class="filter-option-inner-inner">Nothing selected</div>
+                                                </div>
+                                             </div>
+                                          </button>
+                                          <div class="dropdown-menu ">
+                                             <div class="dropdown-arrow"></div>
+                                             <div class="bs-actionsbox">
+                                                <div class="btn-group btn-group-sm btn-block"><button type="button" class="actions-btn bs-select-all btn btn-light">Select All</button><button type="button" class="actions-btn bs-deselect-all btn btn-light">Deselect All</button></div>
+                                             </div>
+                                             <div class="inner show" role="listbox" id="bs-select-3" tabindex="-1" aria-multiselectable="true">
+                                                <ul class="dropdown-menu inner show" role="presentation"></ul>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="row mb-2">
+                                    <label class="col-lg-4">CPA <abbr title="Required" class="text-danger">*</abbr></label>
+                                    <div class="col-lg-8 pl-0 pr-0">
+                                       <div class="dropdown bootstrap-select show-tick" style="width: 100%;">
+                                          <select name="cpa[]" id="cpa" onchange="$(this).parsley().validate();" data-parsley-required="true" data-parsley-required-message="" data-toggle="selectpicker" data-actions-box="true" data-width="100%" multiple="" data-parsley-multiple="cpa[]" class="">
+                                             <option value="Yes">Yes</option>
+                                             <option value="No">No</option>
+                                          </select>
+                                          <button type="button" tabindex="-1" class="custom-select dropdown-toggle bs-placeholder" data-toggle="dropdown" role="combobox" aria-owns="bs-select-4" aria-haspopup="listbox" aria-expanded="false" data-id="cpa" title="Nothing selected">
+                                             <div class="filter-option">
+                                                <div class="filter-option-inner">
+                                                   <div class="filter-option-inner-inner">Nothing selected</div>
+                                                </div>
+                                             </div>
+                                          </button>
+                                          <div class="dropdown-menu ">
+                                             <div class="dropdown-arrow"></div>
+                                             <div class="bs-actionsbox">
+                                                <div class="btn-group btn-group-sm btn-block"><button type="button" class="actions-btn bs-select-all btn btn-light">Select All</button><button type="button" class="actions-btn bs-deselect-all btn btn-light">Deselect All</button></div>
+                                             </div>
+                                             <div class="inner show" role="listbox" id="bs-select-4" tabindex="-1" aria-multiselectable="true">
+                                                <ul class="dropdown-menu inner show" role="presentation"></ul>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <hr>
+                                 <h4 class="card-title mb-3">Agent Payout </h4>
+                                 <!-- grid row -->
+                                 <div class="row mb-2">
+                                    <label class="col-lg-5">Rewards On <abbr title="Required" class="text-danger">*</abbr></label>
+                                    <div class="col-lg-7 pl-0 pr-0">
+                                       <select name="areward_on" data-parsley-required="true" data-parsley-required-message="" class="custom-select">
+                                          <option value="">Choose </option>
+                                          <option value="OD">OD</option>
+                                          <option value="NET">NET</option>
+                                       </select>
+                                    </div>
+                                 </div>
+                                 <div class="row mb-2">
+                                    <label class="col-lg-5">Rewards % <abbr title="Required" class="text-danger">*</abbr></label><input type="text" value="" name="areward_pct" class="form-control maskNumField col-lg-7 rewardpct" data-mask-as-number-decimals="2" data-parsley-required="true" min="0" max="100" maxlength="4">
+                                 </div>
+                                 <hr>
+                                 <h4 class="card-title mb-3">Self Payout </h4>
+                                 <!-- grid row -->
+                                 <div class="row mb-2">
+                                    <label class="col-lg-5">Rewards On <abbr title="Required" class="text-danger">*</abbr></label>
+                                    <div class="col-lg-7 pl-0 pr-0">
+                                       <select name="sreward_on" data-parsley-required="true" data-parsley-required-message="" class="custom-select">
+                                          <option value="">Choose </option>
+                                          <option value="OD">OD</option>
+                                          <option value="NET">NET</option>
+                                       </select>
+                                    </div>
+                                 </div>
+                                 <div class="row mb-2">
+                                    <label class="col-lg-5">Rewards %<abbr title="Required" class="text-danger">*</abbr></label><input type="text" value="" name="sreward_pct" class="form-control maskNumField rewardpct col-lg-7" data-mask-as-number-decimals="2" data-parsley-required="true" min="0" max="100" maxlength="4">
+                                 </div>
+                              </div>
+                              <!-- /.card-body -->
+                           </div>
+                           <!-- /.card -->
+                        </div>
+                     </div>
+                     <hr>
+                     <div class="form-row">
+                        <div class="col-md-12 col-sm-12">
+                           <a href="slabs.php?slab=SHUBHAM" class="btn btn-secondary w-100p float-left">Back</a>
+                           <span class="float-right">
+                           <button type="submit" name="submit" class="btn btn-success w-100p">Save</button>
+                           </span>
+                        </div>
+                     </div>
+                  </form>
+                  <!-- /form -->
+               </div>
+               <!-- /.section-block -->
+            </div>
+            <!-- /.page-section -->
+         </div>
+         <!-- /.page-inner -->
+      </div>
+      <!-- /.page -->
+   </div>
+   <!-- /.wrapper -->
+</main>
+<!-- /.app-main -->
+<div class="aside-backdrop"></div>
+</div><!-- /.app -->
+<div class="modal modal-alert fade" id="ModalAlertError" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="ModalAlertErrorLabel" aria-hidden="true">
+   <!-- .modal-dialog -->
+   <div class="modal-dialog" role="document">
+      <!-- .modal-content -->
+      <div class="modal-content">
+         <!-- .modal-header -->
+         <div class="modal-header">
+            <h5 class="modal-title">
+               <i class="fa fa-exclamation-triangle text-red mr-1"></i> System Error 
+            </h5>
+         </div>
+         <!-- /.modal-header -->
+         <!-- .modal-body -->
+         <div class="modal-body">
+            <p>The Code Execution cannot proceed due to system error, retry after refreshing the page if the error remains the same, you need to contact your Administrator immediately.</p>
+         </div>
+         <!-- /.modal-body -->
+         <!-- .modal-footer -->
+         <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-dismiss="modal">OK</button>
+         </div>
+         <!-- /.modal-footer -->
+      </div>
+      <!-- /.modal-content -->
+   </div>
+   <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- BEGIN BASE JS -->
+<script src="{%static 'js/jquery.min.js' %}"></script>
+<script src="{%static 'js/popper.min.js' %}"></script>
+<script src="{%static 'js/bootstrap.min.js' %}"></script> <!-- END BASE JS -->
+<!-- BEGIN PLUGINS JS -->
+<script src="{% static 'js/pace.min.js' %}"></script>
+<script src="{% static 'js/stacked-menu.min.js' %}"></script>
+<script src="{% static 'js/perfect-scrollbar.min.js'%}"></script><!-- END PLUGINS JS -->
+<!-- Parsley -->
+<script src="{%static 'js/parsley.js' %}"></script>
+<!-- BEGIN THEME JS -->
+<script src="{%static 'js/theme.js' %}"></script> 
+<script src="{%static 'js/toastr.min.js' %}"></script>
+<script src="{%static 'js/flatpickr.min.js' %}"></script>
+<script src="{%static 'js/select2.full.min.js' %}"></script>
+<script src="{%static 'js/moment.js' %}"></script>
+<script src="{%static 'js/mask-as-number.min.js' %}"></script>
+<script src="{%static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{%static 'js/dataTables.bootstrap.js' %}"></script>
+<script src="{%static 'js/jquery.form.js' %}"></script>
+<script src="{%static 'js/custom.min.js' %}"></script>
+<script type="text/javascript" src="{%static 'js/bootstrap-select.min.js' %}"></script>
+<script type="text/javascript" src="{%static 'js/filter-multi-select.js' %}"></script>
+<script type="text/javascript" src="{%static 'js/bootstrap-tagsinput.min.js' %}"></script>
+<script type="text/javascript" src="{%static 'js/payouts.min.js' %}"></script>
+</body></html>
+{%endblock%}

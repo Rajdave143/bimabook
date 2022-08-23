@@ -16,21 +16,23 @@
 							  <!-- grid column -->
 							  <div class="col-auto">
 								<!-- .user-avatar -->
-								<a href="javascript:;" class="user-avatar user-avatar-floated user-avatar-xl"><img src="https://www.bimabook.in/public/user.png" alt=""></a> <!-- /.user-avatar -->
+								<a href="javascript:;" class="user-avatar user-avatar-floated user-avatar-xl"><img src="https://www.bimabook.in/profile/user.png" alt=""></a> <!-- /.user-avatar -->
 							  </div><!-- /grid column -->
 							  <!-- grid column -->
 							  <!-- .col -->
+							  {%for value in data%}
 							  <div class="col">
 								<h3 class="card-title">
-								  <a href="javascript:;">Demo</a>
+								  <a href="javascript:;">{{value.full_name}}</a>
 								</h3>
-								<h6 class="card-subtitle text-muted"> DEMO </h6>
+								<h6 class="card-subtitle text-muted"> {{value.full_name}} </h6>
 							  </div><!-- /.col -->
 							  <!-- /grid column -->
 							  <!-- grid column -->
 							  <div class="col-md-4 col-lg-4 col-sm-12 text-right mt-2">
-								<a href="javascript:;" class="btn btn-outline-secondary">Joining Date 13/11/2021</a>
+								<a href="javascript:;" class="btn btn-outline-secondary">Joining Date : {{value.created_at}}</a>
 							  </div><!-- /grid column -->
+							  {%endfor%}
 							</div><!-- /grid row -->
 							<!-- grid row -->
 						  </div><!-- /.card-body -->
@@ -43,8 +45,8 @@
 					  <div class="nav-scroller">
 						<!-- .nav -->
 						<div class="nav nav-tabs">
-							<a class="nav-link " href="index.php?tab=profile">Profile</a>
-							<a class="nav-link active" href="">Bank Details</a> 
+							<a class="nav-link " href="{%url 'bima_policy:profile'%}">Profile</a>
+							<a class="nav-link active" href="{%url 'bima_policy:bank_det'%}">Bank Details</a> 
 						</div><!-- /.nav -->
 					  </div><!-- /.nav-scroller -->
 					</nav><!-- /.page-navs -->
@@ -57,7 +59,6 @@
 				Banks Account Numbers
 				<button data-toggle="modal" data-target="#mdlbanks" class='btn btn-secondary btn-sm float-right'><i class="fa fa-plus"></i> Add New</button>
 			</div>
-            {% for value in data %}
 			<div class="card-body">
 				<!-- .table -->
 
@@ -67,27 +68,29 @@
 							<tr>
 								<th>Sr. No.</th>
 								<th>Beneficiary Name</th>
-								<th>A/C No.</th>
+								<th>A/C No.</th> 	
 								<th>Bank Name</th>
 								<th>#</th>
 							</tr>
 						</thead>
 						<tbody>
-																<tr>
-										<td>1</td>
-										<td>{{value.beneficiary_name}}</td>
-										<td>{{value.acc_no}}</td>
-										<td>{{value.bank_name}}</td>
-										<td>
-											<a class="mr-1 btn btn-sm btn-icon btn-secondary" data-url="q1+AEoFtrlOzSuNNZQSHbaHVk4Gr6hgGKfuk1aD1YRdm39ZpHA675aq5GLxa4teUj+zseHXqnwsoSdVCjVgY8iFVPwRtrfotbUY3bsY2vfXxDbETKPDyqvhBRderhxid" title='Remove' onclick="remove(this);">
-												<i class="fa fa-trash-alt text-danger" aria-hidden="true"></i>
-											</a>
-										</td>
-									</tr>
-														</tbody>
+							{%for value in bankdata%}
+							<tr>
+								<td>{{forloop.counter}}</td>
+								<td>{{value.beneficiary_name}}</td>
+								<td>{{value.acc_no}}</td>
+								<td>{{value.bank_name}}</td>
+								<td>
+									<form method='POST' action="{% url 'bima_policy:del_bank' value.id %}" >
+										{% csrf_token %}
+										<input type="submit" class="btn btn-primary w-100p" value="delete" name='delete'>
+									</form>
+								</td>
+							</tr>
+							{%endfor%}
+						</tbody>
 					</table>
 				</div>
-                {% endfor %} 
 			</div><!-- /.card-body -->
 		</div>
 		<div class="modal fade" id="mdlbanks" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="inscompModalLabel" aria-hidden="true">
@@ -96,12 +99,13 @@
 					<div class="modal-header">
 						<h5 class="modal-title"> Add New Bank </h5>
 					</div>
-					<form method="post" autocomplete="off" data-parsley-validate="true" name="frmbank">
+					<form method="post" autocomplete="off" data-parsley-validate="true" name="post" action="">
+						{% csrf_token %}
 						<div class="modal-body">
 							<div class="form-group">
 								<label class="form-label" >Beneficiary Name<em class="text-danger">*</em></label>
 								<input type="text" class='form-control' data-parsley-pattern="^(?:[A-Za-z]+[- ])*[A-Za-z]+$" data-parsley-required="true" name="beneficiary_name" id="beneficiary_name">
-								<input type="hidden" name="csrf_token" data-parsley-required="true" value="e6132bfd54cf53401beb0b36be3225c7" readonly />
+								
 							</div>
 							<div class="form-group">
 								<label class="col-form-label" >Account Number<em class="text-danger">*</em></label>
@@ -114,15 +118,15 @@
 						</div>
 						<div class="modal-footer">
 							<div class="custom-control custom-control-inline custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="ckreload"> <label class="custom-control-label" for="ckreload">Stay on this page after Save.</label>
+								<input type="checkbox" class="custom-control-input" id="ckreload"> <label class="custom-control-label" data-parsley-multiple="ckreload">Stay on this page after Save.</label>
 							</div>
 							<button type="button" class="btn btn-secondary w-100p" data-dismiss="modal">Close</button>
-							<button type="submit" name="bank_add"  class="btn btn-primary w-100p" >Save</button>
+							<button type="submit" name="bankadd" class="btn btn-primary w-100p" >Save</button>
 						</div>
 					</form>
 				</div>
 			</div>
-		</div>
+		</div>	
 		<div class="modal fade" id="mdlbanksdel" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -133,9 +137,13 @@
 						<p>Do you want to Remove Selected Bank Details</p>	
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary w-100p" data-dismiss="modal">No</button>
-						<input type="submit" id="bank_remove" class="btn btn-primary w-100p" value="Yes">
-						<input type="hidden" id="bankid" readonly>
+						{% comment %} <form method='POST' name="del_bank">
+							{%for value in bankdata%}
+							<button type="button" class="btn btn-secondary w-100p" data-dismiss="modal">No</button>
+							<input type="submit" id={{value.id}} class="btn btn-primary w-100p" value="Yes">
+							<input type="hidden" id="bankid" readonly>
+							{%endfor%}
+						</form> {% endcomment %}
 					</div>
 				</div>
 			</div>
@@ -167,7 +175,7 @@
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <!-- BEGIN BASE JS -->
-<script src="{%static 'js/jquery.min.js'%}"></script>
+{% comment %} <script src="{%static 'js/jquery.min.js'%}"></script>
 <script src="{%static 'js/popper.min.js'%}"></script>
 <script src="{%static 'js/bootstrap.min.js'%}"></script>  <!-- END BASE JS -->
 <!-- BEGIN PLUGINS JS -->
@@ -209,7 +217,7 @@
 			{targets: [4],className: "text-center w-10pc nowrap",orderable: false},
 		],
 	});
-	</script>
+	</script> {% endcomment %}
 		</body>
 </html>
 {%endblock%}

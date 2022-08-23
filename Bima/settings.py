@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bima_policy',
+    'fontawesomefree',
 ]
 
 MIDDLEWARE = [
@@ -87,11 +88,11 @@ DATABASES = {
         'default': {
             'ENGINE': 'djongo',
             'NAME': 'bimabook',
-            'ENFORCE_SCHEMA': False,
-            'USER': 'Raj12345',
-            'PASSWORD': 'Raj123456789',
+
             'CLIENT': {
                 'host': 'mongodb+srv://Raj12345:Raj123456789@cluster0.aedpiub.mongodb.net/bimabook?retryWrites=true&w=majority',
+                'username': 'Raj12345',
+                'password': 'Raj123456789',
             }  
         }
 }
@@ -133,16 +134,18 @@ USE_TZ = True
 
 MEDIA_URL = 'media/'
 STATIC_URL = 'static/'
+# AUTH_USER_MODEL='bima_policy.ProfileModel'
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR,"static"),
+)
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',  
-]
-
-STATIC_ROOT = BASE_DIR/'staticfiles'
-MEDIA_ROOT = BASE_DIR/'static/images'
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+MEDIA_ROOT = (
+    os.path.join(BASE_DIR,"static/images"),
+)
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-# LOGIN_URL=''
+LOGIN_REDIRECT_URL = 'login/'

@@ -8,16 +8,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><!-- End Required meta tags -->
 <!-- FAVICONS -->
-<link rel="apple-touch-icon" sizes="144x144" href="public/favicon.ico">
-<link rel="shortcut icon" href="public/favicon.ico">
+<link rel="apple-touch-icon" sizes="144x144" href="static/images/favicon.ico">
+<link rel="shortcut icon" href="static/images/favicon.ico">
 <meta name="theme-color" content="#3063A0"><!-- End FAVICONS -->
 <!-- GOOGLE FONT -->
 <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet"><!-- End GOOGLE FONT -->
 <!-- BEGIN PLUGINS STYLES -->
 <link rel="stylesheet" href="{% static 'css/aos.css'%}"><!-- END PLUGINS STYLES -->
 <!-- BEGIN THEME STYLES -->
-<link rel="stylesheet" href="{% static '../css/icofont.min.css' %}"/>
-<link rel="stylesheet" href="{% static '../css/theme.min.css'%}" data-skin="default"/>    <!-- BEGIN THEME STYLES -->-
+<link rel="stylesheet" href="{% static 'css/icofont.min.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/theme.min.css'%}" data-skin="default"/>    <!-- BEGIN THEME STYLES -->-
     <link rel="stylesheet" href="{% static 'css/theme.min.css'%}" data-skin="default"/>
     <link rel="stylesheet" href="{% static 'css/theme-dark.min.css'%}" data-skin="dark"/>
     <link rel="stylesheet" href="{% static 'css/custom.min.css' %}" />
@@ -71,16 +71,15 @@
 	<main class="auth">
 		<header class='mt-6'><h6 class='p-4'>Welcome To Bimabook! Enter Your Login credentials</h6></header>
 		<!-- form -->
-		<form data-parsley-validate="true" class="auth-form" id='auth-form' method="post">
+		<form data-parsley-validate="true" class="auth-form" id='auth-form' method="POST" action="{%url 'bima_policy:login'%}">
       {% csrf_token %}
 
-      {% if error %}
+      {% if error_message %}
       <div class="alert alert-danger" role="alert">
-        <h5 class="alert-heading">{{error}}</h5>
+        <h5 class="alert-heading">{{error_message}}</h5>
       </div>
       {% endif %}
-      
-      {{ form.as_p }}
+  
 			<div id="response"></div>
 			<!-- .form-group -->
 			<div class="form-group">
@@ -116,7 +115,7 @@
 		</form><!-- /.auth-form -->
 		<div id='2way-auth'></div>
 		<!-- copyright -->
-		<footer class="auth-footer">Bimabook © 2022 All Rights Reserved. </footer>
+		<footer class="auth-footer"> © 2022 All Rights Reserved. </footer>
     </main><!-- /.auth -->
     {% load static %}
     <!-- BEGIN BASE JS -->

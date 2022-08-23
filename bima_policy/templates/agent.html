@@ -179,8 +179,6 @@
 <script src="{%static 'js/dataTables.bootstrap.js' %}"></script>
 <script src="{%static 'js/jquery.form.js' %}"></script>
 <script src="{%static 'js/custom.min.js' %}"></script>
-<script>
-  $(document).ready(function(){$("#tblList").DataTable({dom:"<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>\n  <'table-responsive'tr>\n        <'row align-items-center'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 d-flex justify-content-end'p>>",language:{paginate:{previous:'<i class="fa fa-lg fa-angle-left"></i>',next:'<i class="fa fa-lg fa-angle-right"></i>'},infoFiltered:""},order: [[0, 'desc']],processing:!1,bServerSide:!0,bStateSave:!0,autoWidth:!1,sAjaxSource:"getAgents.php",columnDefs:[{targets:[0],className:"text-center width-10p"},{targets:[8],className:"text-center nowrap",orderable:!1}]}),$("#download_agent").click(function(){$.redirectPost("download.php",{download:"download_agent"})})});
-</script>
+
 </body></html>
 {%endblock%}

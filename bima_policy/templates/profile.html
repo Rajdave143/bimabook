@@ -31,7 +31,7 @@
                       <!-- /grid column -->
                       <!-- grid column -->
                       <div class="col-md-4 col-lg-4 col-sm-12 text-right mt-2">
-                        <a href="javascript:;" class="btn btn-outline-secondary">Joining Date 13/11/2021</a>
+                        <a href="javascript:;" class="btn btn-outline-secondary">Joining Date : {{value.created_at}}</a>
                       </div><!-- /grid column -->
                     </div><!-- /grid row -->
                     <!-- grid row -->
@@ -45,8 +45,8 @@
               <div class="nav-scroller">
                 <!-- .nav -->
                 <div class="nav nav-tabs">
-                    <a class="nav-link active" href="index.php?tab=profile">Profile</a>
-                    <a class="nav-link " href="bank_details/">Bank Details</a> 
+                    <a class="nav-link active" href="{%url 'bima_policy:profile'%}">Profile</a>
+                    <a class="nav-link " href="{%url 'bima_policy:bank_det'%}">Bank Details</a> 
                 </div><!-- /.nav -->
               </div><!-- /.nav-scroller -->
             </nav><!-- /.page-navs -->
@@ -86,7 +86,7 @@
                         <div class="form-row">
                             <label class="col-md-3">Personal Email Id<abbr title="Required" class="text-danger">*</abbr></label>
                             <div class="col-md-9 mb-3">
-                                <p class="form-control">{{value.email_id}}</p>
+                                <p class="form-control">{{value.email}}</p>
                             </div><!-- /form column -->
                         </div>
                         <div class="form-row">
@@ -116,7 +116,7 @@
                                         <p class="form-control">{{value.package_GB}}</p>
                                     </div>
                                     <div class="col-md-4">
-                                        <p class="form-control">{{value.package_GB}}</p>
+                                        <p class="form-control">{{value.package_MB}}</p>
                                     </div>
                                     <div class="col-md-4">
                                         <p class="form-control">{{value.package_duration}}</p>

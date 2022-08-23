@@ -17,11 +17,11 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf.urls.static import static
 from django.conf import settings
-from bima_policy.views import Index,login
+from bima_policy.views import Index,login_form
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', login.as_view(), name='login'),
+    path('login/', login_form),
     path('bima_policy/',include('bima_policy.urls')),
     path('', Index, name='index'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

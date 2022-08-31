@@ -69,14 +69,18 @@
       </nav><!-- /.navbar -->
 	<!-- .auth -->
 	<main class="auth">
-		<header class='mt-6'><h6 class='p-4'>Welcome To Bimabook! Enter Your Login credentials</h6></header>
+		<header class='mt-6'><h6 class='p-3'>Welcome ! Enter Your Login credentials</h6></header>
 		<!-- form -->
 		<form data-parsley-validate="true" class="auth-form" id='auth-form' method="POST" action="{%url 'bima_policy:login'%}">
       {% csrf_token %}
 
       {% if error_message %}
       <div class="alert alert-danger" role="alert">
-        <h5 class="alert-heading">{{error_message}}</h5>
+        <h5 class="alert-heading mx-auto my-auto">{{error_message}}</h5>
+      </div>
+      {% elif success_message%}
+      <div class="alert alert-success " role="alert">
+        <h5 class="alert-heading mx-auto my-auto">{{success_message}}</h5>
       </div>
       {% endif %}
   

@@ -17,14 +17,22 @@
                             </div><!-- /.card-header -->
                             <!-- .card-body -->
                             <div class="card-body">
-                                <form autocomplete="off" id="frmupload" action="Submit" method="post" data-parsley-validate="true" enctype="multipart/form-data" novalidate="">
+                                <form autocomplete="off" id="frmupload"  method="post" data-parsley-validate="true" enctype="multipart/form-data" novalidate="">
+                                    {%csrf_token%}
+                                    {% if messages %}
+                                        <ul class="messages">
+                                            {% for message in messages %}
+                                         <li{% if message.tags %} class=""{% endif %}>{{ message }}</li>
+                                            {% endfor %}
+                                    </ul>
+                                    {% endif %}
                                     <input type="hidden" name="csrf_token" value="3aa46d351adf42e35a29630915fe2ae8">
                                     <div class="row">
                                     <div class="col-md-6 mb-4 m-r-10">
                                         <input type="file" name="fcsv" id="fcsv" accept=".csv" data-parsley-required="true" data-parsley-required-message="" class="form-control p-1" style="background: #fcfcfd">
                                     </div>
                                     <div class="col-md-4">
-                                        <button type="submit" name="submit" class="btn btn-primary"> Upload</button>
+                                        <button type="submit" name="submitup" class="btn btn-primary"> Upload</button>
                                     </div>
                                     </div>
                                     Instuctions
@@ -65,8 +73,8 @@
 </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <!-- BEGIN BASE JS -->
-<script src="{%static 'js/jquery.min.js' %}"></script>
-<script src="{%static 'js/popper.min.js' %}"></script>
+{% comment %} <script src="{%static 'js/jquery.min.js' %}"></script> {% endcomment %}
+{% comment %} <script src="{%static 'js/popper.min.js' %}"></script>
 <script src="{%static 'js/bootstrap.min.js' %}"></script> <!-- END BASE JS -->
 <!-- BEGIN PLUGINS JS -->
 <script src="{% static 'js/pace.min.js' %}"></script>
@@ -89,5 +97,5 @@
 $(document).ready(function(){var s;$("#frmupload").ajaxForm({beforeSend:function(){var e=$("#frmupload");if(!e.parsley().isValid())return!1;submit=e.find("button[type='submit']"),submit.prop("disabled",!0),s=submit.html(),submit.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Uploading...'),$("#response").html("")},data:{request:"InsuranceUpload"},success:function(e,r,t,n){n[0].reset();try{obj=$.parseJSON(e),1==obj.status?($("#response").html(obj.response),n[0].reset()):$("#response").html(obj.response)}catch(s){systemError()}submit.prop("disabled",!1),submit.html(s)}})});
 </script>
 
-</body></html>
+</body></html> {% endcomment %}
 {%endblock%}

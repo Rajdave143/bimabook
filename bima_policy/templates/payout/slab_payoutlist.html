@@ -18,7 +18,7 @@
                </ol>
             </nav>
             <h1 class="page-title"> Payout List 
-               <button class="btn btn-secondary btn-sm float-right" id="download_payout"><i class="fa fa-download"></i> Download</button>
+               <button class="btn btn-secondary btn-sm float-right" id="download_payout" onclick="ExportToExcel('xlsx')"><i class="fa fa-download"></i> Download</button>
                <a href="{%url 'bima_policy:slab_payoutform' %}" class="btn btn-secondary btn-sm float-right mr-2"><i class="fa fa-plus"></i> Add New</a>
             </h1>
          </header>
@@ -72,7 +72,7 @@
                               <tbody>
                                  <tr role="row" class="odd">
                                     <td class="text-center w-10pc sorting_1">{{forloop.counter}}</td>
-                                    <td><a href="index.php?slab=SHUBHAM&amp;payout=35">{{value.payout_name}}</a></td>
+                                    <td><a href="{%url 'bima_policy:slab_payoutform'%}">{{value.payout_name}}</a></td>
                                     <td>{{value.case_type}}</td>
                                     <td>{{value.coverage}}</td>
                                     <td>{{value.fuel_type}}</td>
@@ -173,7 +173,7 @@
 </div>
 <!-- /.modal -->
 <!-- BEGIN BASE JS -->
-<script src="{%static 'js/jquery.min.js' %}"></script>
+{% comment %} <script src="{%static 'js/jquery.min.js' %}"></script>
 <script src="{%static 'js/popper.min.js' %}"></script>
 <script src="{%static 'js/bootstrap.min.js' %}"></script> <!-- END BASE JS -->
 <!-- BEGIN PLUGINS JS -->
@@ -194,10 +194,20 @@
 <script src="{%static 'js/jquery.form.js' %}"></script>
 <script src="{%static 'js/custom.min.js' %}"></script>
 {% comment %} <script src="{%static 'js/slab.min.js' %}"></script> {% endcomment %}
-<script>
+{% comment %} <script>
    $("#download_payout").click(function(){
    $.redirectPost("download.php",{download:'download_payout',slab:"25"});
    });
 </script>
-</body></html>
+</body></html>  {% endcomment %}
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+<script>
+  function ExportToExcel(type, fn, dl) {
+    var elt = document.getElementById('tblList');
+    var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+    return dl ?
+      XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+      XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
+ }
+</script>
 {%endblock%}

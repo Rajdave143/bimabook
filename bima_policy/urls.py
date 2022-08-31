@@ -1,5 +1,4 @@
 from django.urls import path
-
 from bima_policy.models import *
 from .views import *
 app_name='bima_policy'
@@ -9,14 +8,19 @@ urlpatterns = [
     path('profile/',Profile,name='profile'),
     path('profile/bank_details/',bank_details,name='bank_det'),  
     path('profile/bank_details/<str:id>',delete_bank_details,name='del_bank'),
-    path('user/',staffmanage.as_view(), name='staff'),
+    path('user/',staffmanage, name='staff'),
+    path(r'^user/edit/(?P<str:id>\d+)/$',staff_edit,name='staff_edit'),
     path('agent/',agent, name='agent'),
-    path('agent/add_agent/',add, name='add_agent'),
-    path('service_provider/', service_p, name='service_p'),
+    path('agent/add_agent/',add_agent, name='add_agent'),
+    path('service_provider/', service_provider, name='service_p'),
     path('service_provider/add_sp/', add_sp, name='add_sp'),
-    path('vehicle/',vehicleView, name='vehi'),
+    path('vehicle/',vehicle_view, name='vehi'),
     path('insurance_comp/', ins_comp, name="ins_comp"),
-    path('RTO/', RTOconversion.as_view(), name="rto_conv"),
+    path('rto/',rto_list , name="rto"),
+    # path(r'^products/$', product_list, name='product_list'),
+    # path(r'^create/$',product_create, name='product_create'),
+    # path(r'^rto/(?P<str:id>\d+)/update/$',product_update,name='product_update'),
+    # path(r'^rto/(?P<pk>\d+)/delete/$',product_delete, name='product_delete'),
     path('slab/', slab, name="slab"),
     path('slab/slab_payoutlist/', slab_payout, name="slab_payout"),
     path('slab/slab_payoutform/',slab_payoutform, name="slab_payoutform"),
@@ -34,5 +38,4 @@ urlpatterns = [
     path('report_broker/',report_brokercode, name="report_brokercode"),
     path('report_insurance/',report_insurance_comp, name="report_insurance_comp"),
     path('subscription/',subscription, name="subscription"),
-    path('delete/<int:id>', RtoRemove, name='RtoRemove'),
 ]

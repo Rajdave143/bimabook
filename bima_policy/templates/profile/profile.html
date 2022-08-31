@@ -129,6 +129,7 @@
                     </div>
                     <div class="tab-pane fade" id="tab_password">
                         <form method="post" name="frmpassword" data-parsley-validate="true" novalidate="">
+                            {% csrf_token %}
                             <!-- form row -->
                             <div class="form-row mb-3">
                                 <!-- form column -->
@@ -156,7 +157,7 @@
                          <hr>
                           <!-- .form-actions -->
                           <div class="form-actions">
-                            <button type="submit" name="security" class="btn btn-primary text-nowrap ml-auto">Update Password</button>
+                            <button type="submit" name="updpassword" class="btn btn-primary text-nowrap ml-auto">Update Password</button>
                           </div><!-- /.form-actions -->
                         </form><!-- /form -->
                     </div>

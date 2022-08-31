@@ -1,5 +1,4 @@
 {%extends "base.html"%}
-
 {%block content%}
 {%load static%}
 
@@ -37,11 +36,14 @@
                                                     <td class="text-center width-10p sorting_1">{{forloop.counter}}</td>
                                                     <td>{{value.staffname}}</td>
                                                     <td>{{value.login_id}}</td>
-                                                    <td><span class="badge badge-success">{{value.status}}</span></td>
+													<td><span class="badge badge-success">{{value.status}}</span></td>
+												
+														
+                                                    
                                                     <td class=" text-center width-10p">
-                                                        <a href="" class="mr-1 btn btn-sm btn-icon btn-secondary" title="Edit">
-    		                                                    <i class="fa fa-pencil-alt" aria-hidden="true"></i>
-    		                                                </a>
+                                                        <a href="{%url 'bima_policy:staff_edit' value.login_id %}" class="mr-3 btn btn btn-icon btn-secondary" title="Edit">
+															<i class="fa fa-pencil-alt mt-2" aria-hidden="true"></i>
+    		                                            </a>
     		                                            </td>
     		                                        </tr>
                                                 </tbody>
@@ -117,9 +119,7 @@
     		                                    </div>
     		                                </div>
     		                                <div class="modal-footer">
-    		                                    <div class="custom-control custom-control-inline custom-checkbox">
-    		                                        <input type="checkbox" class="custom-control-input" id="ckreload" data-parsley-multiple="ckreload"> <label class="custom-control-label" for="ckreload">Stay on this page after Save.</label>
-    		                                    </div>
+    		                                    
     		                                    <button type="button" class="btn btn-secondary w-100p" data-dismiss="modal">Close</button>
     		                                    <button type="submit" name="staff_add" class="btn btn-primary w-100p">Save</button>
     		                                </div>

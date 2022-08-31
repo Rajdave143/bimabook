@@ -48,7 +48,7 @@
                      <div class="card card-fluid">
                         <div class="card-header">
                            Service Provider List
-                           <a href="add_sp/" class="btn btn-secondary btn-sm float-right"><i class="fa fa-plus"></i> Add New</a>
+                           <a href="{%url 'bima_policy:add_sp' %}" class="btn btn-secondary btn-sm float-right"><i class="fa fa-plus"></i> Add New</a>
                         </div>
                         <!-- .card-body -->
                         <div class="card-body">
@@ -71,7 +71,7 @@
                                        </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
-                                       <div id="tblList_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control" placeholder="" aria-controls="tblList"></label></div>
+                                       <div id="tblList_filter" class="dataTables_filter"><label>Search:<input type="search" data-table="data_table"  id="myInput" onkeyup="myFunction()" class="form-control" placeholder="" aria-controls="tblList"></label></div>
                                     </div>
                                  </div>
                                  <div class="table-responsive">
@@ -93,7 +93,14 @@
                                              <td>{{value.full_name}}</td>
                                              <td>{{value.mob_no}}</td>
                                              <td>{{value.city}}</td>
-                                             <td class=" text-center width-10p"><span class="badge badge-danger">{{value.status}}</span></td>
+                                             <td class=" text-center width-10p">
+                                                
+                                                {% comment %} {% if value.status is 'Active'%} {% endcomment %}
+                                                <span class="badge badge-success">{{value.status}}</span>
+                                                {% comment %} {% elif value.status is 'Inactive' %}
+                                                <span class="badge badge-danger">{{value.status}}</span>
+                                                {% endif %} {% endcomment %}
+                                             </td>
                                              <td class=" text-center nowrap">
                                                 <a href="providers.php?q=HI/C/ooRh8sH2+oRMx+asSqAXQ1sKOP8X8LBqiIbNJottZDaJsVv/ZGfsZ+LHkto0lFK6vN6gVXu2ssTK6Q+l+wDe414oUbAuDaARlb/tVw=" class="mr-1 btn btn-sm btn-icon btn-secondary" title="Edit"><i class="fa fa-pencil-alt"></i></a>
                                                 <button class="btn btn-sm btn-icon btn-secondary" data-action="remove" data-id="3" title="Remove"><i class="text-danger fa fa-trash-alt"></i></button>
@@ -106,7 +113,7 @@
                                  </div>
                                  <div class="row align-items-center">
                                     <div class="col-sm-12 col-md-5">
-                                       <div class="dataTables_info" id="tblList_info" role="status" aria-live="polite">Showing 1 to 3 of 3 entries</div>
+                                       <div class="dataTables_info" id="tblList_info" role="status" aria-live="polite">Showing entries</div>
                                     </div>
                                     <div class="col-sm-12 col-md-7 d-flex justify-content-end">
                                        <div class="dataTables_paginate paging_simple_numbers" id="tblList_paginate">
@@ -169,7 +176,7 @@
                                        </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
-                                       <div id="tblList2_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control" placeholder="" aria-controls="tblList2"></label></div>
+                                       <div id="tblList2_filter" class="dataTables_filter"><label>Search:<input type="search" data-table="data_table"  id="myInput2" onkeyup="bFunction()" class="form-control" placeholder="" aria-controls="tblList2"></label></div>
                                     </div>
                                  </div>
                                  <div class="table-responsive">
@@ -182,11 +189,12 @@
                                              <th class="text-center w-10pc nowrap sorting_disabled" rowspan="1" colspan="1" aria-label="#" style="width: 0px;">#</th>
                                           </tr>
                                        </thead>
+                                     {%for value in datab%}
                                        <tbody>
                                           <tr role="row" class="odd">
-                                             <td class="text-center nowrap w-10pc sorting_1">1</td>
-                                             <td>Broker Self Code</td>
-                                             <td class=" text-center nowrap w-10pc"><span class="badge badge-success">Active</span></td>
+                                             <td class="text-center nowrap w-10pc sorting_1">{{forloop.counter}}</td>
+                                             <td>{{value.code}}</td>
+                                             <td class=" text-center nowrap w-10pc"><span class="badge badge-success">{{value.status}}</span></td>
                                              <td class=" text-center w-10pc nowrap">
                                                 <a class="mr-1 btn btn-sm btn-icon btn-secondary" data-id="2" title="Edit" onclick="update(this);">
                                                 <i class="fa fa-pencil-alt" aria-hidden="true"></i>
@@ -195,13 +203,14 @@
                                                 <i class="fa fa-trash-alt text-danger" aria-hidden="true"></i>
                                                 </a>
                                              </td>
-                                          </tr>
+                                          </tr>us
                                        </tbody>
+                                       {%endfor%}
                                     </table>
                                  </div>
                                  <div class="row align-items-center">
                                     <div class="col-sm-12 col-md-5">
-                                       <div class="dataTables_info" id="tblList2_info" role="status" aria-live="polite">Showing 1 to 1 of 1 entries</div>
+                                       <div class="dataTables_info" id="tblList2_info" role="status" aria-live="polite">Showing  entries</div>
                                     </div>
                                     <div class="col-sm-12 col-md-7 d-flex justify-content-end">
                                        <div class="dataTables_paginate paging_simple_numbers" id="tblList2_paginate">
@@ -225,6 +234,7 @@
                                  <h5 id="inscompModalLabel" class="modal-title"> Add New Code </h5>
                               </div>
                               <form method="post" autocomplete="off" data-parsley-validate="true" name="frmspcode" novalidate="">
+                                 {%csrf_token%}
                                  <div class="modal-body">
                                     <div class="form-group">
                                        <label class="col-form-label">Code<em class="text-danger">*</em></label>
@@ -256,11 +266,11 @@
                                  <h5 id="ModalLabel" class="modal-title">Update Code</h5>
                               </div>
                               <form method="post" autocomplete="off" data-parsley-validate="true" name="frmspcodeedit" novalidate="">
+                                 {% csrf_token %}
                                  <div class="modal-body">
                                     <div class="form-group">
                                        <label class="col-form-label">Name<em class="text-danger">*</em></label>
                                        <input type="text" class="form-control" data-parsley-required="true" id="code" disabled="">
-                                       <input type="hidden" name="csrf_token" data-parsley-required="true" value="f3e892226df2d82cf1129b35ec088980" readonly="">
                                        <input type="hidden" id="spcid" name="spcid" data-parsley-required="true" readonly="">
                                     </div>
                                     <div class="form-group">
@@ -308,55 +318,55 @@
    <!-- /.wrapper -->
 </main>
 <!-- /.app-main -->
-<div class="aside-backdrop"></div>
-</div><!-- /.app -->
-<div class="modal modal-alert fade" id="ModalAlertError" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="ModalAlertErrorLabel" aria-hidden="true">
-   <!-- .modal-dialog -->
-   <div class="modal-dialog" role="document">
-      <!-- .modal-content -->
-      <div class="modal-content">
-         <!-- .modal-header -->
-         <div class="modal-header">
-            <h5 class="modal-title">
-               <i class="fa fa-exclamation-triangle text-red mr-1"></i> System Error 
-            </h5>
-         </div>
-         <!-- /.modal-header -->
-         <!-- .modal-body -->
-         <div class="modal-body">
-            <p>The Code Execution cannot proceed due to system error, retry after refreshing the page if the error remains the same, you need to contact your Administrator immediately.</p>
-         </div>
-         <!-- /.modal-body -->
-         <!-- .modal-footer -->
-         <div class="modal-footer">
-            <button type="button" class="btn btn-light" data-dismiss="modal">OK</button>
-         </div>
-         <!-- /.modal-footer -->
-      </div>
-      <!-- /.modal-content -->
-   </div>
-   <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
-<!-- BEGIN BASE JS -->
-<!-- END BASE JS -->
-<!-- BEGIN PLUGINS JS -->
-<script src="{% static 'js/pace.min.js' %}"></script>
-<script src="{% static 'js/stacked-menu.min.js' %}"></script>
-<script src="{% static 'js/perfect-scrollbar.min.js'%}"></script><!-- END PLUGINS JS -->
-<!-- Parsley -->
-<script src="{%static 'js/parsley.js'%}"></script>
-<!-- BEGIN THEME JS -->
-<script src="{%static 'js/theme.js' %}"></script> 
-<script src="{%static 'js/toastr.min.js' %}"></script>
-<script src="{%static 'js/flatpickr.min.js' %}"></script>
-<script src="{%static 'js/select2.full.min.js' %}"></script>
-<script src="{%static 'js/moment.js' %}"></script>
-<script src="{%static 'js/mask-as-number.min.js' %}"></script>
-<script src="{%static 'js/jquery.dataTables.min.js' %}"></script>
-<script src="{%static 'js/dataTables.bootstrap.js' %}"></script>
-<script src="{%static 'js/jquery.form.js' %}"></script>
-<script src="{%static 'js/custom.min.js' %}"></script>
-<script src="{%static 'js/sp.js' %}"></script>
-</body></html>
+<script>
+   function myFunction() {
+     // Declare variables
+     var input, filter, table, tr, td, i, txtValue;
+     input = document.getElementById("myInput");
+     filter = input.value.toUpperCase();
+     table = document.getElementById("tblList");
+     tr = table.getElementsByTagName("tr");
+   
+     // Loop through all table rows, and hide those who don't match the search query
+     for (i = 0; i < tr.length; i++) {
+       td = tr[i].getElementsByTagName("td")[1];
+       if (td) {
+         txtValue = td.textContent || td.innerText;
+         if (txtValue.toUpperCase().indexOf(filter) > -1) {
+           tr[i].style.display = "";
+         } else {
+           tr[i].style.display = "none";
+         }
+       }
+     }
+   }
+   </script>
+
+   <script>
+      function bFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput2");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("tblList2");
+        tr = table.getElementsByTagName("tr");
+      
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[1];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+        }
+      }
+      </script>
+   
+
+
+
 {%endblock%}

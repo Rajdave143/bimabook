@@ -68,12 +68,16 @@
                                        <td class="w-10pc sorting_1">{{forloop.counter}}</td>
                                        <td>{{value.rto_series}}</td>
                                        <td>{{value.rto_return}}</td>
+                                       {% if value.status is 'Active' %}
                                        <td><span class="badge badge-success">{{value.status}}</span></td>
+                                       {% elif value.status is    'Deactive'%}
+                                       <td><span class="badge badge-danger">{{value.status}}</span></td>
+                                       {% endif %}
                                        <td class=" w-10pc">
                                           <a class="mr-1 btn btn-sm btn-icon btn-secondary"  title="Edit">
                                           <i class="fa fa-pencil-alt" aria-hidden="true"></i>
                                           </a>
-                                          <a href='delete/{{value.id}}'class="mr-1 btn btn-sm btn-icon btn-secondary"  title="Remove" >
+                                          <a href='delete/'{{value.id}}class="mr-1 btn btn-sm btn-icon btn-secondary"  title="Remove" >
                                           <i class="fa fa-trash-alt text-danger" aria-hidden="true"></i>
                                           </a>
                                        </td>
@@ -126,6 +130,7 @@
                               <label class="form-label">Status</label>
                               <select name="status" class="custom-select">
                                  <option value="Active">Active</option>
+                                 {% comment %} <option value="Inactive">Inactive</option> {% endcomment %}
                               </select>
                            </div>
                         </div>
@@ -133,7 +138,7 @@
                            <div class="custom-control custom-control-inline custom-checkbox">
                               <input type="checkbox" class="custom-control-input" id="ckreload" data-parsley-multiple="ckreload"> <label class="custom-control-label" for="ckreload">Stay on this page after Save.</label>
                            </div>
-                           <button type="button" class="btn btn-secondary w-100p" data-dismiss="modal" action="">Close</button>
+                           <button type="button" class="btn btn-secondary w-100p" data-dismiss="modal">Close</button>
                            <button type="submit" name="rto_add" class="btn btn-primary w-100p">Save</button>
                         </div>
                      </form>

@@ -17,7 +17,7 @@
                   <nav aria-label="breadcrumb">
                      <ol class="breadcrumb">
                         <li class="breadcrumb-item active">
-                           <a href="../sp"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Back</a>
+                           <a href=""><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Back</a>
                         </li>
                      </ol>
                   </nav>
@@ -38,7 +38,9 @@
             <div class="page-section">
                <!-- .section-block -->
                <div class="section-block">
-                  <form name="frmsp" method="post" class="" autocomplete="off" data-parsley-validate="true" novalidate="">
+                  <form name="frmsp" method="post"  autocomplete="off" data-parsley-validate="true" novalidate="">
+                     {%csrf_token%}
+                     
                      <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
                            <div class="card">
@@ -49,6 +51,7 @@
                                  <fieldset>
                                     <!-- fieldset -->
                                     <legend class="mb-2">General Details</legend>
+                                    
                                     <div class="form-row">
                                        <div class="col-md-6 mb-3">
                                           <label>Full Name<abbr title="Required" class="text-danger">*</abbr></label>
@@ -74,54 +77,13 @@
                                     <div class="form-row">
                                        <div class="col-md-6 mb-3">
                                           <label>State<abbr title="Required" class="text-danger">*</abbr></label>
-                                          <select name="state" data-parsley-required-message="" onchange="getCities(this.value,city_list);" id="state_list" data-parsley-required="true" class="custom-select select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-                                             <option value="">Choose State</option>
-                                             <option value="1">Andama And Nicobar Island</option>
-                                             <option value="2">Andhra Pradesh</option>
-                                             <option value="3">Arunachal Pradesh</option>
-                                             <option value="4">Assam</option>
-                                             <option value="5">Bihar</option>
-                                             <option value="7">Chandigarh</option>
-                                             <option value="6">Chattisgarh</option>
-                                             <option value="8">Daman And Diu</option>
-                                             <option value="9">Delhi</option>
-                                             <option value="10">Goa</option>
-                                             <option value="11">Gujrat</option>
-                                             <option value="13">Haryana</option>
-                                             <option value="12">Himachal Pradesh</option>
-                                             <option value="15">Jammu And Kashmir</option>
-                                             <option value="14">Jharkhand</option>
-                                             <option value="16">Karnataka</option>
-                                             <option value="17">Kerala</option>
-                                             <option value="19">Lakshadweep</option>
-                                             <option value="18">Leh</option>
-                                             <option value="23">Madhya Pradesh</option>
-                                             <option value="20">Maharashtra</option>
-                                             <option value="22">Manipur</option>
-                                             <option value="21">Meghalaya</option>
-                                             <option value="24">Mizoram</option>
-                                             <option value="25">Nagaland</option>
-                                             <option value="37">NCR</option>
-                                             <option value="26">Odisha</option>
-                                             <option value="28">Puducherry</option>
-                                             <option value="27">Punjab</option>
-                                             <option value="29">Rajasthan</option>
-                                             <option value="30">Sikkim</option>
-                                             <option value="31">Tamil Nadu</option>
-                                             <option value="33">Telangana</option>
-                                             <option value="32">Tripura</option>
-                                             <option value="35">Uttar Pradesh</option>
-                                             <option value="34">Uttrakhand</option>
-                                             <option value="36">West Bengal</option>
-                                          </select>
-                                          <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-state_list-container"><span class="select2-selection__rendered" id="select2-state_list-container" title="Choose State"></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                          <input type="text" value="" class="form-control" name="state" data-parsley-required="true">
+         
                                        </div>
                                        <div class="col-md-6 mb-3">
                                           <label>City<abbr title="Required" class="text-danger">*</abbr></label>
-                                          <select name="city" id="city_list" data-parsley-required-message="" class="custom-select select2 select2-hidden-accessible" data-parsley-required="true" tabindex="-1" aria-hidden="true">
-                                             <option value="">Choose City</option>
-                                          </select>
-                                          <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-city_list-container"><span class="select2-selection__rendered" id="select2-city_list-container" title="Choose City"></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                          <input type="text" value="" class="form-control" name="city" data-parsley-required="true">
+         
                                        </div>
                                     </div>
                                     <div class="form-row">
@@ -143,9 +105,9 @@
                      </div>
                      <hr>
                      <div>
-                        <a href="../sp" class="btn btn-secondary w-100p pull-left">Back</a>
+                        <a href=""  class="btn btn-secondary w-100p pull-left">Back</a>
                         <span class="float-right">
-                        <button type="submit" name="submit" class="btn btn-success w-100p">Save</button>
+                        <button type="submit" name="subbtn" class="btn btn-success w-100ps">Save</button>
                         </span>
                      </div>
                   </form>
@@ -162,7 +124,7 @@
    <!-- /.wrapper -->
 </main>
 <!-- /.app-main -->
-<div class="aside-backdrop"></div>
+{% comment %} <div class="aside-backdrop"></div>
 </div><!-- /.app -->
 <div class="modal modal-alert fade" id="ModalAlertError" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="ModalAlertErrorLabel" aria-hidden="true">
    <!-- .modal-dialog -->
@@ -214,5 +176,5 @@
 <script src="{%static 'js/jquery.form.js' %}"></script>
 <script src="{%static 'js/custom.min.js' %}"></script>
 <script src="{%static 'js/sp.js' %}"></script>
-</body></html>
+</body></html> {% endcomment %}
 {%endblock%}

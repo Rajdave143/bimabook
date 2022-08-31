@@ -288,7 +288,7 @@
                                     </div>
                                     <div class="form-group">
                                        <label>RTOs<abbr title="Required" class="text-danger">*</abbr></label>
-                                       <div class="bootstrap-tagsinput"><input type="text" placeholder="eg: HR26"></div>
+                                       {% comment %} <div class="bootstrap-tagsinput"><input type="text" placeholder="eg: HR26"></div> {% endcomment %}
                                        <input type="text" value="" class="form-control" onchange="$(this).parsley().validate();" data-parsley-required="true" id="rto" placeholder="eg: HR26" name="rto" data-role="tagsinput" style="display: none;">
                                     </div>
                                  </fieldset>
@@ -305,120 +305,60 @@
                                  <!-- .card-body -->
                                  <h4 class="card-title mb-3">Payout General </h4>
                                  <div class="row mb-2">
-                                    <label class="col-lg-4">Case Type <abbr title="Required" class="text-danger">*</abbr></label>
-                                    <div class="col-lg-8 pl-0 pr-0">
-                                       <div class="dropdown bootstrap-select show-tick" style="width: 100%;">
-                                          <select name="case_type[]" onchange="$(this).parsley().validate();" id="case_type" data-parsley-required="true" data-parsley-required-message="" data-toggle="selectpicker" data-actions-box="true" data-width="100%" multiple="" data-parsley-multiple="case_type[]" class="">
+                                    
+                                       <label class="col-lg-5">Case TYpe<abbr title="Required" class="text-danger">*</abbr></label>
+                                       <div class="col-lg-7 pl-0 pr-0">
+                                          <select name="sreward_on" data-parsley-required="true" data-parsley-required-message="" class="custom-select">
+                                             <option value="">Choose </option>
                                              <option value="3">Breakin</option>
                                              <option value="1">New</option>
                                              <option value="2">Rollover</option>
                                           </select>
-
-                                          <button type="button" tabindex="-1" class="custom-select dropdown-toggle bs-placeholder" data-toggle="dropdown" role="combobox" aria-owns="bs-select-1" aria-haspopup="listbox" aria-expanded="false" data-id="case_type" title="Nothing selected">
-                                             <div class="filter-option">
-                                                <div class="filter-option-inner">
-                                                   <div class="filter-option-inner-inner">Nothing selected</div>
-                                                </div>
-                                             </div> 
-                                          </button>
+                                       </div>
+                                    </div>
+                                    
+                                           
                                        
-                                          <div class="dropdown-menu ">
-                                             <div class="dropdown-arrow"></div>
-                                             <div class="bs-actionsbox">
-                                                <div class="btn-group btn-group-sm btn-block"><button type="button" class="actions-btn bs-select-all btn btn-light">Select All</button><button type="button" class="actions-btn bs-deselect-all btn btn-light">Deselect All</button></div>
-                                             </div>
-                                             <div class="inner show" role="listbox" id="bs-select-1" tabindex="-1" aria-multiselectable="true">
-                                                <ul class="dropdown-menu inner show" role="presentation"></ul>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
+                                          
                                  <div class="row mb-2">
-                                    <label class="col-lg-4">Coverage <abbr title="Required" class="text-danger">*</abbr></label>
-                                    <div class="col-lg-8 pl-0 pr-0">
-                                       <div class="dropdown bootstrap-select show-tick" style="width: 100%;">
-                                          <select name="coverage[]" onchange="$(this).parsley().validate();" id="coverage" data-parsley-required="true" data-parsley-required-message="" data-toggle="selectpicker" data-actions-box="true" data-width="100%" multiple="" data-parsley-multiple="coverage[]" class="">
-                                             <option value="Comp">Comp</option>
-                                             <option value="SAOD">SAOD</option>
-                                             <option value="TP">TP</option>
-                                          </select>
-                                          <button type="button" tabindex="-1" class="custom-select dropdown-toggle bs-placeholder" data-toggle="dropdown" role="combobox" aria-owns="bs-select-2" aria-haspopup="listbox" aria-expanded="false" data-id="coverage" title="Nothing selected">
-                                             <div class="filter-option">
-                                                <div class="filter-option-inner">
-                                                   <div class="filter-option-inner-inner">Nothing selected</div>
-                                                </div>
-                                             </div>
-                                          </button>
-                                          <div class="dropdown-menu ">
-                                             <div class="dropdown-arrow"></div>
-                                             <div class="bs-actionsbox">
-                                                <div class="btn-group btn-group-sm btn-block"><button type="button" class="actions-btn bs-select-all btn btn-light">Select All</button><button type="button" class="actions-btn bs-deselect-all btn btn-light">Deselect All</button></div>
-                                             </div>
-                                             <div class="inner show" role="listbox" id="bs-select-2" tabindex="-1" aria-multiselectable="true">
-                                                <ul class="dropdown-menu inner show" role="presentation"></ul>
-                                             </div>
-                                          </div>
-                                       </div>
+                                    <label class="col-lg-5">Coverage<abbr title="Required" class="text-danger">*</abbr></label>
+                                    <div class="col-lg-7 pl-0 pr-0">
+                                       <select name="sreward_on" data-parsley-required="true" data-parsley-required-message="" class="custom-select">
+                                          <option value="">Choose </option>
+                                          <option value="Comp">Comp</option>
+                                          <option value="SAOD">SAOD</option>
+                                          <option value="TP">TP</option>
+                                       </select>
                                     </div>
                                  </div>
+                                    
+                                    
+                               
                                  <div class="row mb-2">
-                                    <label class="col-lg-4">Fuel Type <abbr title="Required" class="text-danger">*</abbr></label>
-                                    <div class="col-lg-8 pl-0 pr-0">
-                                       <div class="dropdown bootstrap-select show-tick" style="width: 100%;">
-                                          <select name="fuel_type[]" onchange="$(this).parsley().validate();" data-parsley-required="true" data-parsley-required-message="" data-toggle="selectpicker" data-actions-box="true" data-width="100%" multiple="" data-parsley-multiple="fuel_type[]" class="">
-                                             <option value="Petrol">Petrol</option>
-                                             <option value="Diesel">Diesel</option>
-                                             <option value="CNG">CNG</option>
-                                             <option value="Electric">Electric</option>
-                                          </select>
-                                          <button type="button" tabindex="-1" class="custom-select dropdown-toggle bs-placeholder" data-toggle="dropdown" role="combobox" aria-owns="bs-select-3" aria-haspopup="listbox" aria-expanded="false" title="Nothing selected">
-                                             <div class="filter-option">
-                                                <div class="filter-option-inner">
-                                                   <div class="filter-option-inner-inner">Nothing selected</div>
-                                                </div>
-                                             </div>
-                                          </button>
-                                          <div class="dropdown-menu ">
-                                             <div class="dropdown-arrow"></div>
-                                             <div class="bs-actionsbox">
-                                                <div class="btn-group btn-group-sm btn-block"><button type="button" class="actions-btn bs-select-all btn btn-light">Select All</button><button type="button" class="actions-btn bs-deselect-all btn btn-light">Deselect All</button></div>
-                                             </div>
-                                             <div class="inner show" role="listbox" id="bs-select-3" tabindex="-1" aria-multiselectable="true">
-                                                <ul class="dropdown-menu inner show" role="presentation"></ul>
-                                             </div>
-                                          </div>
-                                       </div>
+                                    <label class="col-lg-5">Fuel Type<abbr title="Required" class="text-danger">*</abbr></label>
+                                    <div class="col-lg-7 pl-0 pr-0">
+                                       <select name="sreward_on" data-parsley-required="true" data-parsley-required-message="" class="custom-select">
+                                          <option value="">Choose </option>
+                                          <option value="Petrol">Petrol</option>
+                                          <option value="Diesel">Diesel</option>
+                                          <option value="CNG">CNG</option>
+                                          <option value="Electric">Electric</option>
+                                       </select>
                                     </div>
                                  </div>
+                           
                                  <div class="row mb-2">
-                                    <label class="col-lg-4">CPA <abbr title="Required" class="text-danger">*</abbr></label>
-                                    <div class="col-lg-8 pl-0 pr-0">
-                                       <div class="dropdown bootstrap-select show-tick" style="width: 100%;">
-                                          <select name="cpa[]" id="cpa" onchange="$(this).parsley().validate();" data-parsley-required="true" data-parsley-required-message="" data-toggle="selectpicker" data-actions-box="true" data-width="100%" multiple="" data-parsley-multiple="cpa[]" class="">
-                                             <option value="Yes">Yes</option>
-                                             <option value="No">No</option>
-                                          </select>
-                                          <button type="button" tabindex="-1" class="custom-select dropdown-toggle bs-placeholder" data-toggle="dropdown" role="combobox" aria-owns="bs-select-4" aria-haspopup="listbox" aria-expanded="false" data-id="cpa" title="Nothing selected">
-                                             <div class="filter-option">
-                                                <div class="filter-option-inner">
-                                                   <div class="filter-option-inner-inner">Nothing selected</div>
-                                                </div>
-                                             </div>
-                                          </button>
-                                          <div class="dropdown-menu ">
-                                             <div class="dropdown-arrow"></div>
-                                             <div class="bs-actionsbox">
-                                                <div class="btn-group btn-group-sm btn-block"><button type="button" class="actions-btn bs-select-all btn btn-light">Select All</button><button type="button" class="actions-btn bs-deselect-all btn btn-light">Deselect All</button></div>
-                                             </div>
-                                             <div class="inner show" role="listbox" id="bs-select-4" tabindex="-1" aria-multiselectable="true">
-                                                <ul class="dropdown-menu inner show" role="presentation"></ul>
-                                             </div>
-                                          </div>
-                                       </div>
+                                    <label class="col-lg-5">CPA<abbr title="Required" class="text-danger">*</abbr></label>
+                                    <div class="col-lg-7 pl-0 pr-0">
+                                       <select name="sreward_on" data-parsley-required="true" data-parsley-required-message="" class="custom-select">
+                                          <option value="">Choose </option>
+                                          <option value="YES">YES</option>
+                                          <option value="NO">NO</option>
+                                        
+                                       </select>
                                     </div>
                                  </div>
-                                 <hr>
+
                                  <h4 class="card-title mb-3">Agent Payout </h4>
                                  <!-- grid row -->
                                  <div class="row mb-2">
@@ -510,7 +450,7 @@
 </div>
 <!-- /.modal -->
 <!-- BEGIN BASE JS -->
-<script src="{%static 'js/jquery.min.js' %}"></script>
+<script src="{%static 'js/jquery.min.js' %}"></script> 
 <script src="{%static 'js/popper.min.js' %}"></script>
 <script src="{%static 'js/bootstrap.min.js' %}"></script> <!-- END BASE JS -->
 <!-- BEGIN PLUGINS JS -->

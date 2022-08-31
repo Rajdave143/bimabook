@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bima_policy',
     'fontawesomefree',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -88,7 +89,6 @@ DATABASES = {
         'default': {
             'ENGINE': 'djongo',
             'NAME': 'bimabook',
-
             'CLIENT': {
                 'host': 'mongodb+srv://Raj12345:Raj123456789@cluster0.aedpiub.mongodb.net/bimabook?retryWrites=true&w=majority',
                 'username': 'Raj12345',
@@ -137,7 +137,7 @@ STATIC_URL = 'static/'
 # AUTH_USER_MODEL='bima_policy.ProfileModel'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR,"static"),
+    os.path.join(BASE_DIR,"bima_policy/static"),
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')

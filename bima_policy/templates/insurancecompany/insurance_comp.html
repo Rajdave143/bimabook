@@ -111,11 +111,11 @@
                         <h5 id="inscompModalLabel" class="modal-title"> Add New Company </h5>
                      </div>
                      <form method="post" autocomplete="off" data-parsley-validate="true" name="frminscompany" novalidate="">
+                        {% csrf_token %}
                         <div class="modal-body">
                            <div class="form-group">
                               <label class="col-form-label">Name<em class="text-danger">*</em></label>
                               <input type="text" class="form-control" data-parsley-pattern="^(?:[A-Za-z]+[- ])*[A-Za-z]+$" data-parsley-required="true" name="inscomp_name">
-                              <input type="hidden" name="csrf_token" data-parsley-required="true" value="51bdb8b6c3a2245b349621c82fd4b2f9" readonly="">
                            </div>
                            <div class="form-group">
                               <label class="form-label">Status</label>
@@ -125,9 +125,7 @@
                            </div>
                         </div>
                         <div class="modal-footer">
-                           <div class="custom-control custom-control-inline custom-checkbox">
-                              <input type="checkbox" class="custom-control-input" id="ckreload" data-parsley-multiple="ckreload"> <label class="custom-control-label" for="ckreload">Stay on this page after Save.</label>
-                           </div>
+                  
                            <button type="button" class="btn btn-secondary w-100p" data-dismiss="modal">Close</button>
                            <button type="submit" name="company_add" class="btn btn-primary w-100p">Save</button>
                         </div>

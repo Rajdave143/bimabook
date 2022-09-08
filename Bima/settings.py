@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'bima_policy',
     'fontawesomefree',
     'widget_tweaks',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
@@ -132,18 +133,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-MEDIA_URL = 'media/'
+
 STATIC_URL = 'static/'
 # AUTH_USER_MODEL='bima_policy.ProfileModel'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR,"bima_policy/static"),
-)
-
+    os.path.join(BASE_DIR,"bima_policy/static")
+),
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
-MEDIA_ROOT = (
-    os.path.join(BASE_DIR,"static/images"),
-)
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 

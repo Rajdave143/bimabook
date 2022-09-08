@@ -88,29 +88,7 @@
                                                       {%for value in data%}
                                                       <option>{{value.comp_name}}</option>
                                                       {%endfor%}
-                                                      {% comment %} <option value="2">Bajaj Allianz</option>
-                                                      <option value="22">Bharti Axa</option>
-                                                      <option value="3">Cholamandalam</option>
-                                                      <option value="4">Digit</option>
-                                                      <option value="5">Edelweiss</option>
-                                                      <option value="6">Future</option>
-                                                      <option value="7">Hdfc Ergo</option>
-                                                      <option value="8">Icici Lombard</option>
-                                                      <option value="9">Iffco Tokio</option>
-                                                      <option value="19">Kotak</option>
-                                                      <option value="10">Liberty</option>
-                                                      <option value="11">Magma</option>
-                                                      <option value="23">National</option>
-                                                      <option value="12">Navi</option>
-                                                      <option value="13">New India</option>
-                                                      <option value="20">Raheja</option>
-                                                      <option value="14">Reliance</option>
-                                                      <option value="15">Royal Sundaram</option>
-                                                      <option value="16">Sbi General</option>
-                                                      <option value="17">Sgic</option>
-                                                      <option value="18">Tata Aig</option>
-                                                      <option value="24">United India</option>
-                                                      <option value="21">Universal Sompo</option> {% endcomment %}
+                                                      
                                                    </select>
                                                 </div>
                                                 <div class="col-md-4 mb-4">
@@ -121,12 +99,11 @@
                                                       {%for value in datasp%}
                                                       <option value={{value.full_name}}>{{value.full_name}}</option>
                                                       {%endfor%}
-                                                      {% comment %} <option value="4">Broker Indore</option>
-                                                      <option value="2">PolicyBazaar</option> {% endcomment %}
+                                                      
                                                    </select>
                                                 </div>
                                                 <div class="col-md-4 mb-4">
-                                                   <label>Service Provider/Broker Code</label>
+                                                   <label>Service Provider/Broker Code<abbr title="Required" class="text-danger">*</abbr></label>
                                                    <select name="code" class="custom-select" id="code">
                                                       <option value=""> Choose Code... </option>
                                                       {%for value in databc%}
@@ -174,14 +151,14 @@
                                                    </div>
                                                 </div>
                                                 <div class="col-md-4 mb-4">
-                                                   <label>Previous Policy <small>(Only<strong> PDF &amp; Image </strong>File)</small> </label>
+                                                   <label>Previous Policy<abbr title="Required" class="text-danger">*</abbr> <small>(Only<strong> PDF &amp; Image </strong>File)</small> </label>
                                                    <div class="custom-file">
                                                       <input type="file" name="previous_policy" accept=".pdf,image/*" id="previous_policy" class="custom-file-input">
                                                       <label class="custom-file-label" for="document">Choose file</label>
                                                    </div>
                                                 </div>
                                                 <div class="col-md-4 mb-4">
-                                                   <label>Vehicle RC <small>(Only<strong> PDF &amp; Image </strong>File)</small> </label>
+                                                   <label>Vehicle RC<abbr title="Required" class="text-danger">*</abbr> <small>(Only<strong> PDF &amp; Image </strong>File)</small> </label>
                                                    <div class="custom-file">
                                                       <input type="file" name="vehicle_rc" accept=".pdf,image/*" id="vehicle_rc" class="custom-file-input">
                                                       <label class="custom-file-label" for="document">Choose file</label>
@@ -345,7 +322,13 @@
                                              </select>
                                           </div>
                                           <div class="row mb-2">
-                                             <label class="col-lg-5">Policy Type</label><input type="text" name="policy_type" value="" class="form-control col-lg-6 bg-light" id="pt" readonly="">
+                                             <label class="col-lg-5 pr-0">Policy Type</label>
+                                             <select class="custom-select col-lg-6" name="payment_mode">
+                                                <option value="">Choose </option>
+                                                <option value="Comp">Comp</option>
+                                                <option value="SAOD">SAOD</option>
+                                                <option value="TP">TP</option>
+                                             </select>
                                           </div>
                                        </div>
                                        <!-- /.card-body -->

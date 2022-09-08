@@ -34,18 +34,7 @@
                         <div id="tblList_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                            <div class="row">
                               <div class="col-sm-12 col-md-6">
-                                 <div class="dataTables_length" id="tblList_length">
-                                    <label>
-                                       Show 
-                                       <select name="tblList_length" aria-controls="tblList" class="custom-select">
-                                          <option value="10">10</option>
-                                          <option value="25">25</option>
-                                          <option value="50">50</option>
-                                          <option value="100">100</option>
-                                       </select>
-                                       entries
-                                    </label>
-                                 </div>
+                                 
                               </div>
                               <div class="col-sm-12 col-md-6">
                                  <div id="tblList_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control" placeholder="" aria-controls="tblList"></label></div>
@@ -68,18 +57,17 @@
                                        <td class="w-10pc sorting_1">{{forloop.counter}}</td>
                                        <td>{{value.rto_series}}</td>
                                        <td>{{value.rto_return}}</td>
-                                       {% if value.status is 'Active' %}
                                        <td><span class="badge badge-success">{{value.status}}</span></td>
-                                       {% elif value.status is    'Deactive'%}
-                                       <td><span class="badge badge-danger">{{value.status}}</span></td>
-                                       {% endif %}
                                        <td class=" w-10pc">
-                                          <a class="mr-1 btn btn-sm btn-icon btn-secondary"  title="Edit">
-                                          <i class="fa fa-pencil-alt" aria-hidden="true"></i>
-                                          </a>
-                                          <a href='delete/'{{value.id}}class="mr-1 btn btn-sm btn-icon btn-secondary"  title="Remove" >
-                                          <i class="fa fa-trash-alt text-danger" aria-hidden="true"></i>
-                                          </a>
+                                       <form method='POST' action="{{value.id}}">
+                                          {% csrf_token %}
+                                             {% comment %} <button type='submit' class="mr-1 btn btn-sm btn-icon btn-secondary" name="edit" >
+                                                <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                                             </button> {% endcomment %}
+                                             <button type='submit'class="mr-1 btn btn-md btn-icon btn-secondary" name="delete" >
+                                                <i class="fa fa-trash-alt text-danger" aria-hidden="true"></i>
+                                             </button>
+                                       </form>
                                        </td>
                                     </tr>
                                     

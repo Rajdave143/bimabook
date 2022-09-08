@@ -37,16 +37,13 @@
                                                     <td>{{value.staffname}}</td>
                                                     <td>{{value.login_id}}</td>
 													<td><span class="badge badge-success">{{value.status}}</span></td>
-												
-														
-                                                    
                                                     <td class=" text-center width-10p">
                                                         <a href="{%url 'bima_policy:staff_edit' value.login_id %}" class="mr-3 btn btn btn-icon btn-secondary" title="Edit">
 															<i class="fa fa-pencil-alt mt-2" aria-hidden="true"></i>
     		                                            </a>
-    		                                            </td>
-    		                                        </tr>
-                                                </tbody>
+    		                                        </td>
+    		                                    </tr>
+                                            </tbody>
                                             {% endfor %}
     		                            </table>
 										{%else%}

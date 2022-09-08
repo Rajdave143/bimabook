@@ -1,4 +1,4 @@
-from urllib import request
+import profile
 from django.http import HttpResponse, HttpResponseServerError
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponseRedirect
@@ -7,11 +7,32 @@ from django.template.loader import render_to_string
 from django.shortcuts import redirect,render
 from django.http import JsonResponse
 from django.contrib import messages
+from django.views import View
 from .models import *
 from .forms import *
 
+def get_id_from_session(request):
+    id=request.session['id']
+    return id
+def Index(request):
+     return render(request, 'index.html')
 
-#LoginView
+
+# DashBoard
+def dashboard(request):
+    agentcount=Agents.objects.filter(profile_id=get_id_from_session(request)).count()
+    staffcount=StaffModel.objects.filter(profile_id=get_id_from_session(request)).count()
+    spcount=ServiceProvider.objects.filter(profile_id=get_id_from_session(request)).count()
+    policycount=Agents.objects.filter(profile_id=get_id_from_session(request)).count()
+    print('total agents are:',agentcount)
+    return render(request,'dashboard.html',{'agentcount':agentcount,'staffcount':staffcount,'spcount':spcount,'totalpolicy':policycount})
+
+
+
+
+
+
+# LoginView
 def login_form(request):
     return render(request,'login.html')
 def loginView(request):
@@ -24,12 +45,12 @@ def loginView(request):
                 if user is not None:
                     request.session['id']=user.id
                     request.session['full_name']=user.full_name
-                    return render(request,'dashboard.html')
+                    return redirect('bima_policy:dashboard')
             except ProfileModel.DoesNotExist:
                 error_message='Invalid ID or Password!'
                 return render(request,'login.html',{'error_message':error_message})
         except TypeError:
-            return render(request,'dashboard.html')
+            return redirect('bima_policy:dashboard')
 
         # try:
         #         return render(request, 'Dashboard.html')
@@ -46,16 +67,10 @@ def loginView(request):
         #     error_message='User ID or Password Invalid!' 
         #     return render(request,'login.html',{'error':error_message})
 
-def get_id_from_session(request):
-    id=request.session['id']
-    return id
-
-def Index(request):
-     return render(request, 'index.html')
 
 
 
-#ProfileView
+# ProfileView
 def Profile(request):
     if request.method=="GET":
         try:
@@ -75,7 +90,7 @@ def Profile(request):
 
 
 
-#UserView
+# UserView
 def staffmanage(request):
     if request.method=='GET':
         try:
@@ -90,6 +105,7 @@ def staffmanage(request):
             password=request.POST['password']
             StaffModel.objects.create(staffname=staffname,password=password,profile_id=data)
             return HttpResponseRedirect(request.path,('staff'))
+
 
 def staff_edit(request,id):
     if request.method=='GET':
@@ -106,7 +122,7 @@ def staff_edit(request,id):
 
 
 
-#ProfileView
+# ProfileView
 def bank_details(request):
     if request.method=="GET":
         try:
@@ -130,6 +146,7 @@ def bank_details(request):
     return HttpResponseRedirect(request.path,('bank_det'))  
 
 
+
 def delete_bank_details(request,id):
     if request.method=="GET":
         return redirect('bima_policy:bank_det')
@@ -141,6 +158,7 @@ def delete_bank_details(request,id):
             return redirect('bima_policy:bank_det')
 
 
+
 def change_password(request):
     if request.method=='POST' and 'updpassword' in request.POST:
         profile=ProfileModel.objects.filter(id=get_id_from_session(request))
@@ -149,16 +167,35 @@ def change_password(request):
 
 
 
-
-#RTOView
+# RTOView
 def rto_list(request):
     if request.method=="GET":
         data=RtoConversionModel.objects.filter(profile_id_id=get_id_from_session(request))
         return render(request, 'rto/RTO.html', {'data': data})
+    if request.method=="POST" and 'rto_add' in request.POST:
+        data = ProfileModel.objects.get(id=get_id_from_session(request))
+        rtoseries=request.POST['rtoseries']
+        rtoreturn=request.POST['rtoreturn']
+        RtoConversionModel.objects.create(rto_series=rtoseries,rto_return=rtoreturn,profile_id=data)
+        return redirect('bima_policy:rto')
 
+def update_rto(request,id):
+    data={}
+    if request.method=="GET":
+        data = RtoConversionModel.objects.filter(profile_id_id=get_id_from_session(request))
+        udata=RtoConversionModel.objects.filter(id=id)
+        return render(request, 'RTO.html',{'data':data,'udata':udata})
+    if request.method=='POST':
+        if "delete" in request.POST:
+            item = get_object_or_404(RtoConversionModel, id=id)
+            item.delete()
+            return redirect('bima_policy:rto')
+        # if "rto_update" in request.POST:
+        #     item = get_object_or_404(RtoConversionModel, id=id)
+        #     RtoConversionModel.objects.filter(id=id).update(rto_series=request.POST['ertoseries'],rto_return=request.POST['ertoreturn'])
+        #     return redirect('bima_policy:rto')
 
-
-
+# InsuranceView
 def ins_comp(request):
     if request.method=="GET":
         try:
@@ -176,8 +213,13 @@ def ins_comp(request):
         except ProfileModel.DoesNotExist:
             return HttpResponseRedirect(request.path,('bank_det'))
 
+def ins_del(request,id):
+    if request.method=='POST' and 'delete' in request.POST:
+        data=InsuranceCompany.objects.filter(id=id)
+        data.delete()
+        return redirect('bima_policy:ins_comp')
 
-
+# VehicleView
 def vehicle_view(request):
     if request.method=="GET":
         try:
@@ -185,39 +227,75 @@ def vehicle_view(request):
             datamn=VehicleModelName.objects.filter(profile_id_id=get_id_from_session(request))
             datavc=VehicleCategory.objects.filter(profile_id_id=get_id_from_session(request))
             mylist=zip(datamn,data)
-            return render(request,'vehicle/vehicle.html',{'list':mylist, 'datavc':datavc, 'data':data})
+            return render(request,'vehicle/vehicle.html',{'list':mylist, 'datavc':datavc, 'data':data,'datamn':datamn})
         except(VehicleMakeBy.DoesNotExist,VehicleModelName.DoesNotExist,VehicleCategory.DoesNotExist):
             return render(request,'vehicle/vehicle.html')
     else:
         p= ProfileModel.objects.get(id=get_id_from_session(request))
         if 'mb_add' in request.POST:
-            VehicleMakeBy.objects.create(company=request.POST['makeby'],status=request.POST['mbstatus'],profile_id=p)
+            VehicleMakeBy.objects.create(company=request.POST['makeby'],status = request.POST['mbstatus'],profile_id=p)
             return redirect('bima_policy:vehi')
         elif 'vm_add' in request.POST:
-            VehicleModelName.objects.create(model=request.POST['model'],status=request.POST['vmstatus'],profile_id=p)
+            VehicleModelName.objects.create(model=request.POST['model'],status = request.POST['vmstatus'],profile_id=p)
             return redirect('bima_policy:vehi')
         elif 'vc_add' in request.POST:
-            VehicleCategory.objects.create(category=request.POST['category'],status=request.POST['vcstatus'],profile_id=p)
+            VehicleCategory.objects.create(category=request.POST['category'],status = request.POST['vcstatus'],profile_id=p)
             return redirect('bima_policy:vehi')
         return redirect('bima_policy:vehi')
 
+def delete_vehicle(request,id):
+    if request.method=="POST" and 'delete' in request.POST:
+        data1=VehicleCategory.objects.filter(id=id)
+        data2=VehicleMakeBy.objects.filter(id=id)
+        data3=VehicleModelName.objects.filter(id=id)
+        if data1:
+            data1.delete()
+        elif data2:
+            data2.delete()
+        elif data3:
+            data3.delete()
+        return redirect('bima_policy:vehi')
+    elif request.method=="POST" and 'edit' in request.POST:
+        return edit_vehicle(request,id)
 
-#ServiceProviderView
+def edit_vehicle(request,id):
+    data={}
+    vcd=VehicleCategory.objects.filter(id=id)
+    vmbd=VehicleMakeBy.objects.filter(id=id)
+    vmd=VehicleModelName.objects.filter(id=id)
+    if request.method=="GET" :
+        if vcd:
+            data['vcd']=VehicleCategory.objects.filter(id=id)
+        elif vmbd:
+            data['vmbd']=VehicleMakeBy.objects.filter(id=id)
+        elif vmd:
+            data['vmd']=VehicleModelName.objects.filter(id=id)
+        return render(request,'vehicle/vehicle_edit.html',{'data':data})
+    # elif request.method=="POST" and 'edit' in request.POST:
+    #     vcd=VehicleCategory.objects.filter(id=id)
+    #     vmbd=VehicleMakeBy.objects.filter(id=id)
+    #     vmd=VehicleModelName.objects.filter(id=id)
+    #     if data1:
+
+
+
+# ServiceProviderView
 def service_provider(request):
     if request.method=="GET":
         try:
+            brokerdata = BrokerCode.objects.filter(profile_id_id = get_id_from_session(request))
             data = ServiceProvider.objects.filter(profile_id_id = get_id_from_session(request))
-            datab = BrokerCode.objects.filter(profile_id_id = get_id_from_session(request))
-            return render(request,'serviceprovider/service_provider.html',{'data':data, 'datab':datab})  
+            return render(request,'serviceprovider/service_provider.html',{'data':data, 'brokerdata':brokerdata})  
         except (ServiceProvider.DoesNotExist , BrokerCode.DoesNotExist):
             return render(request,'serviceprovider/service_provider.html') 
     else:
         if 'code_add' in request.POST: 
-            data =BrokerCode.objects.filter()
+            data =ProfileModel.objects.get(id = get_id_from_session(request))
             code=request.POST['code']
             status=request.POST['status']
-            BrokerCode.objects.create(code=code,status=status)
-            return redirect('service_provider')
+            BrokerCode.objects.create(code=code,status=status,profile_id=data)
+            return redirect('bima_policy:service_p')
+
 
 def add_sp(request):
     if request.method=="GET":
@@ -306,35 +384,21 @@ def add_sp(request):
     #     RtoConversionModel.objects.create(rto_series=rtoseries,rto_return=rtoreturn,profile_id=data)
     # return redirect('bima_policy:rto_conv')
     
-# def update_rto(request,id):
-#     data={}
-#     if request.method=="GET":
-#         data = RtoConversionModel.objects.filter(profile_id_id=get_id_from_session(request))
-#         udata=RtoConversionModel.objects.filter(id=id)
-#         return render(request, 'RTO.html',{'data':data,'udata':udata})
-#     if request.method=='POST':
-#         if "delete" in request.POST:
-#             item = get_object_or_404(RtoConversionModel, id=id)
-#             item.delete()
-#             return redirect('bima_policy:rto_conv')
-#         if "rto_update" in request.POST:
-#             item = get_object_or_404(RtoConversionModel, id=id)
-#             RtoConversionModel.objects.filter(id=id).update(rto_series=request.POST['ertoseries'],rto_return=request.POST['ertoreturn'])
-#             return redirect('bima_policy:rto_conv')
 
-def create_policy(request):
-    if request.method== "GET":
-        data=InsuranceCompany.objects.all()
-        datasp=ServiceProvider.objects.all()
-        databc=BrokerCode.objects.all()
-        datamb=VehicleMakeBy.objects.all()
-        datavm=VehicleModelName.objects.all()
-        datavc=VehicleCategory.objects.all()
-        datag=Agents.objects.all()
+
+class create_policy(View):
+    def get(self,request):
+        data=InsuranceCompany.objects.filter(profile_id=get_id_from_session(request))
+        datasp=ServiceProvider.objects.filter(profile_id=get_id_from_session(request))
+        databc=BrokerCode.objects.filter(profile_id=get_id_from_session(request))
+        datamb=VehicleMakeBy.objects.filter(profile_id=get_id_from_session(request))
+        datavm=VehicleModelName.objects.filter(profile_id=get_id_from_session(request))
+        datavc=VehicleCategory.objects.filter(profile_id=get_id_from_session(request))
+        datag=Agents.objects.filter(profile_id=get_id_from_session(request))
         # mylist=zip(datamn,data)
         # return render(request,'vehicle.html',{'listt':mylist, 'datavc':datavc, 'data':data})
-        return render(request,'policylist/policy_list.html',{'data':data,'datasp':datasp,'databc':databc,'datamb':datamb, 'datavm':datavm, 'datavc':datavc,'datag':datag})   
-    else:
+        return render(request,'policylist/policy_list.html',{'data':data,'datasp':datasp,'databc':databc,'datamb':datamb, 'datavm':datavm, 'datavc':datavc,'datag':datag})
+    def post(self,request):
             policy_no=request.POST['policy_no']
             registration=request.POST['registration']
             case_type=request.POST['case_type']
@@ -344,7 +408,7 @@ def create_policy(request):
             issue_date=request.POST['issue_date']
             risk_date=request.POST['risk_date']
             cpa=request.POST['cpa']
-            document=request.FILES.get('document')
+            document=request.FILES['document']
             fs=FileSystemStorage()
             fs.save(document.name, document)
             previous_policy=request.FILES.get('previous_policy')
@@ -370,12 +434,23 @@ def create_policy(request):
             net=request.POST['total']
             payment_mode=request.POST['payment_mode']
             total=request.POST['total']
-            policy_type=request.POST['policy_type']
+            policy_type=request.POST.get('policy_type')
             Policy.objects.create(policy_no=policy_no, registration_no=registration, casetype=case_type, insurance_comp=ins_company, sp_name=service_provider, sp_brokercode=code, issueDate=issue_date,riskDate=risk_date,
             CPA=cpa,insurance=document, previous_policy=previous_policy,vehicle_rc=vehicle_rc,vehicle_makeby=vehicle_makeby,vehicle_model=vehicle_model, vehicle_category=vehicle_category,other_info=vehicle_other_info,
             vehicle_fuel_type=fuel_type,manufature_year=manu_year,engine_no= engine_no,chasis_no=chasis_no,agent_name=agent,customer_name=cust_name,remark=remarks,OD_premium=od,
             TP_premium=tp,GST=gst,net=net,payment_mode=payment_mode,total=total,policy_type=policy_type)
             return HttpResponseRedirect(request.path,('policy_list'))
+# mydata = Members.objects.all().order_by('lastname', '-id').values()
+# mydata = Members.objects.all().order_by('-firstname').values()
+def policy_entry(request):
+    data = Policy.objects.all().order_by('-policyid').values()
+    datag=Agents.objects.all()
+    return render(request, 'policy_entry_list.html',{'data':data ,'datag':datag})
+
+def policy_delete(request, id):
+    if request.method=='post' and 'Remove' in request.POST:
+        Policy.objects.filter(policyid=id).delete()
+    return redirect('bima_policy:policy_entry')
 
 
 def logout(request):
@@ -386,7 +461,7 @@ def logout(request):
 
 
 def agent(request):
-    data = Agents.objects.all()
+    data = Agents.objects.filter(profile_id=get_id_from_session(request))
     return render(request, 'agents/agent.html', {'data':data})
 
 
@@ -394,8 +469,9 @@ def agent(request):
 def add_agent(request):
     try:
         if request.method=="GET":
+            Adata=Slab.objects.filter(profile_id=get_id_from_session(request))
             data =Agents.objects.filter(profile_id=get_id_from_session(request))
-            return render(request,'agents/add_agent.html', {'data':data})
+            return render(request,'agents/add_agent.html', {'data':data,'Adata':Adata})
     except Agents.DoesNotExist:
         return render(request, 'agents/add_agent.html')
     else:
@@ -412,6 +488,11 @@ def add_agent(request):
             pan=request.POST['pan']
             docs=request.POST.get('docs')
             password=request.POST['password']
+            # a=Agents.objects.get(full_name=full_name)
+            # if full_name==Agents.objects.get(full_name=a.full_name):
+            #     error_message="Full Name already exist! Please enter unique name to continue..."
+            #     return redirect('bima_policy:add_agent',{'error_message':error_message})
+            # else:
             Agents.objects.create(full_name=full_name, email_id=email_id, mob_no=phone, address=address, state= state, city=city,slab=agent_slab, GSTIN=gstin,PAN=pan,document=docs,password=password ,profile_id=data)
             # return render(request,'agent.html',{'data':data})
             messages.success(request, 'Successfully added agent!')
@@ -425,23 +506,82 @@ def add_agent(request):
 
 
 
-
+# PayoutView
 def slab(request):
-    data =SLAB.objects.all()
-    return render(request,'payout/slab.html', {'data':data})
+    if request.method=="GET":
+        try:
+            data =Slab.objects.filter(profile_id=get_id_from_session(request))
+            return render(request,'payout/slab.html', {'data':data})
+        except Slab.DoesNotExist:
+            return render(request,'payout/slab.html')
+    else :
+        try:
+            if 'slab_add' in request.POST:
+                profile=ProfileModel.objects.get(id=get_id_from_session(request))
+                slab_name=request.POST['slab']
+                Slab.objects.create(slab_name=slab_name,profile_id=profile)
+                return redirect('bima_policy:slab')
+            # if 'slab_remove' in request.POST:
 
+        except ProfileModel.DoesNotExist:
+            return redirect('bima_policy:slab')
 
+def slab_delete(request,id):
+    data=Slab.objects.filter(slab_name=id)
+    data.delete()
+    return redirect('bima_policy:slab')
+def slab_edit(request,id):
+    data=Slab.objects.filter(slab_name=id)
+    if request.method=='GET':
+        return render(request,'payout/payoutname_edit.html',{'data':data})
+    else:
+        slab_name=request.POST['slab_name']
+        status=request.POST['stauts']
+        Slab.objects.filter(slab_name=id).update(slab_name=slab_name,status=status)
+        return redirect('bima_policy:slab') 
 
-def slab_payout(request):
-    data =SLAB.objects.all()
-    return render(request,'payout/slab_payoutlist.html', {'data':data})
-
-
+def slab_payout(request,id):
+    if request.method=='GET':
+        try:
+            data=Payout.objects.filter(profile_id=get_id_from_session(request))
+            data1=data.filter(slab_name=id)
+            print(data1)
+            return render(request,'payout/slab_payoutlist.html', {'data1':data1})
+        except Payout.DoesNotExist:
+            return render(request,'payout/slab_payoutlist.html')
 
 
 def slab_payoutform(request):
-    data =SLAB.objects.all()
-    return render(request,'payout/slab_payoutform.html', {'data':data})
+    if request.method=="GET":
+        pol_provider=ServiceProvider.objects.filter(profile_id=get_id_from_session(request))
+        ins_comp=InsuranceCompany.objects.filter(profile_id=get_id_from_session(request))
+        vcat=VehicleCategory.objects.filter(profile_id=get_id_from_session(request))
+        vmb=VehicleMakeBy.objects.filter(profile_id=get_id_from_session(request))
+        vmodel=VehicleModelName.objects.filter(profile_id=get_id_from_session(request))
+        slab = Slab.objects.filter(profile_id=get_id_from_session(request))
+        return render(request,'payout/slab_payoutform.html', {'slab': slab,'vcat':vcat,'vmb':vmb,'vmodel':vmodel,'ins_comp':ins_comp,'pol_provider':pol_provider})
+
+    if request.method=='POST' and 'savepayout' in request.POST:
+        data=ProfileModel.objects.get(id=get_id_from_session(request))
+        payoutName=request.POST['payout_name']
+        slab=request.POST['slab']
+        s=Slab.objects.get(slab_name=slab)
+        status=request.POST['status']
+        vehicle_category=request.POST['vehicle_category']
+        Insurance_company=request.POST['ins_com']
+        policy_provider=request.POST['policy_provider']
+        vehicle_make_by=request.POST['vehicle_make_by']
+        rtos=request.POST['rtos']
+        casetype=request.POST['casetype']
+        coverage=request.POST['coverage']
+        fueltype=request.POST['fueltype']
+        cpa=request.POST['cpa']
+        rewards_on=request.POST['areward_on']
+        rewards_age=request.POST['areward_pct']
+        self_rewards_on=request.POST['sreward_on']
+        self_rewards_age=request.POST['sreward_pct']
+        Payout.objects.create(payout_name=payoutName,slab_name=s,status=status,vehicle_category=vehicle_category,Insurance_company=Insurance_company,policy_provider=policy_provider,vehicle_make_by=vehicle_make_by,rto=rtos,case_type=casetype,coverage=coverage,fuel_type=fueltype,cpa=cpa,rewards_on=rewards_on,rewards_age=rewards_age,self_rewards_on=self_rewards_on,self_rewards_age=self_rewards_age,profile_id=data)
+        return redirect('bima_policy:slab')
 
 
 
@@ -449,13 +589,23 @@ def slab_payoutform(request):
 
 
 def policy_entry(request):
-    return render(request,'policylist/policy_entry_list.html')
-
+    data = Policy.objects.all()
+    datag=Agents.objects.all()
+    return render(request, 'policylist/policy_entry_list.html',{'data':data ,'datag':datag})
 
 
 
 def policy_import(request):
-    return render(request,'policylist/policy_list_import.html')
+    if request.method=='GET':
+        return render(request,'policylist/policy_list_import.html')
+    else:
+        if 'submitup' in request.POST:
+            fcsv=request.FILES.get('fcsv')
+            fs=FileSystemStorage()
+            fs.save(fcsv.name, fcsv)
+            InsuranceUpload.objects.create(ins_upload=fcsv)
+            messages.success(request, 'Insurance upload succefully......')
+            return HttpResponseRedirect(request.path,('policy_list/policy_list_import'))
 
 
 
@@ -524,27 +674,6 @@ def subscription(request):
     return render(request, 'subscription.html')
 
 
+def agent_profile(request):
+    return render(request,'agents/agent_particular.html')
 
-
-# def vehicleView(request):
-#     if request.method=='GET':
-#         vmb=VehicleMakeBy.objects.all()
-#         vmn=VehicleModelName.objects.all()
-#         vc=VehicleCategory.objects.all()
-#         data ={'vmb':vmb,'vmn':vmn,'vc':vc}
-#         return render(request,'vehicle.html',{'data':data}) 
-#     else:
-#         if 'mb_add' in request.POST:
-#             vehiclemb=VehicleMakeBy.objects.create(company=request.POST['makeby'])
-#             vehiclemb.save()
-#             return render(request,'vehicle.html')
-
-#         elif 'vm_add' in request.POST:
-#             Model=VehicleModelName.objects.create(model=request.POST['model'])
-#             Model.save()
-#             return render(request,'vehicle.html')
-
-#         elif 'vc_add' in request.POST:
-#             VehicleCategory.objects.create(category=request.POST['category'])
-#             return render(request,'vehicle.html')
-#         return render(request,'vehicle.html')

@@ -10,10 +10,12 @@
             <nav aria-label="breadcrumb">
                <ol class="breadcrumb">
                   <li class="breadcrumb-item">
-                     <a href="slabs.php"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Payout Slabs</a>
+                     <a href="{%url 'bima_policy:slab'%}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Payout Slabs</a>
                   </li>
                   <li class="breadcrumb-item active">
-                     <a href="javascript:void(0);">{{data.slab_name}}</a>
+                     {% for value in data1 %}
+                     <a href="javascript:void(0);"></a>
+                     {% endfor %}
                   </li>
                </ol>
             </nav>
@@ -68,7 +70,7 @@
                                     <th class="text-center sorting_disabled" rowspan="1" colspan="1" aria-label="#" style="width: 0px;">#</th>
                                  </tr>
                               </thead>
-                              {%for value in data%}
+                              {%for value in data1%}
                               <tbody>
                                  <tr role="row" class="odd">
                                     <td class="text-center w-10pc sorting_1">{{forloop.counter}}</td>
@@ -76,7 +78,7 @@
                                     <td>{{value.case_type}}</td>
                                     <td>{{value.coverage}}</td>
                                     <td>{{value.fuel_type}}</td>
-                                    <td>{{value.CPA}}</td>
+                                    <td>{{value.cpa}}</td>
                                     <td class=" text-center ">{{value.rewards_on}}</td>
                                     <td class=" text-center ">{{value.rewards_age}}</td>
                                     <td class=" text-center ">{{value.self_rewards_on}}</td>

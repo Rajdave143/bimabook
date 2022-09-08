@@ -68,12 +68,16 @@
                                        <td>{{value.comp_name}}</td>
                                        <td class=" text-center nowrap w-10pc"><span class="badge badge-success">{{value.status}}</span></td>
                                        <td class=" text-center nowrap w-10pc">
-                                          <a class="mr-1 btn btn-sm btn-icon btn-secondary" data-id="1" title="Edit" onclick="update(this);">
-                                          <i class="fa fa-pencil-alt" aria-hidden="true"></i>
-                                          </a>
-                                          <a class="mr-1 btn btn-sm btn-icon btn-secondary" data-id="1" title="Remove" onclick="remove(this);">
-                                          <i class="fa fa-trash-alt text-danger" aria-hidden="true"></i>
-                                          </a>
+                                          <form method='POST' action="{{value.id}}">
+                                             {% csrf_token %}
+                                                <button type='submit' class="mr-1 mt-1 btn btn-sm btn-icon btn-secondary" name="edit" >
+                                                   <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                                                </button>
+                                                
+                                                <button type='submit'class="mr-1 mt-1 btn btn-sm btn-icon btn-secondary" name="delete" >
+                                                   <i class="fa fa-trash-alt text-danger" aria-hidden="true"></i>
+                                                </button>
+                                          </form>
                                        </td>
                                     </tr>
                                       </tbody>
@@ -144,7 +148,6 @@
                            <div class="form-group">
                               <label class="col-form-label">Name<em class="text-danger">*</em></label>
                               <input type="text" class="form-control" data-parsley-required="true" id="compname" disabled="">
-                              <input type="hidden" name="csrf_token" data-parsley-required="true" value="51bdb8b6c3a2245b349621c82fd4b2f9" readonly="">
                               <input type="hidden" id="inscomp_id" name="inscomp_id" data-parsley-required="true" readonly="">
                            </div>
                            <div class="form-group">

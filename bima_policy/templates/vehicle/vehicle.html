@@ -90,12 +90,15 @@
                               <td>{{value.category}}</td>
                               <td class=" text-center w-10pc"><span class="badge badge-success">{{value.status}}</span></td>
                               <td class=" text-center w-10pc nowrap">
-                                <a class="mr-1 btn btn-sm btn-icon btn-secondary" data-id="26" title="Edit" onclick="update(this);">
-                                <i class="fa fa-pencil-alt" aria-hidden="true"></i>
-                                </a>
-                                <a class="mr-1 btn btn-sm btn-icon btn-secondary" data-id="26" title="Remove" onclick="remove(this);">
-                                <i class="fa fa-trash-alt text-danger" aria-hidden="true"></i>
-                                </a>
+                                <form method='POST' action="{{value.id}}">
+                                  {% csrf_token %}
+                                     <a type='submit' href = "{{value.id}}/edit" class="mr-1 btn btn-sm btn-icon btn-secondary" name="edit" >
+                                        <i class="fa fa-pencil-alt mt-2" aria-hidden="true"></i>
+                                     </a>
+                                     <button type='submit'class="mr-1 btn btn-sm btn-icon btn-secondary" name="delete" >
+                                        <i class="fa fa-trash-alt text-danger" aria-hidden="true"></i>
+                                     </button>
+                                </form>
                               </td>
                             </tr>
                             </tbody>
@@ -130,13 +133,12 @@
                     <div class="modal-header">
                       <h6 id="ModalvcLabel" class="modal-title"> Add New Category </h6>
                     </div>
-                    <form method="post"  autocomplete="off" data-parsley-validate="true" name="frmvc" novalidate="">
+                    <form method="post"  autocomplete="off" data-parsley-validate="true" name="frmvc">
                       <div class="modal-body">
                         <div class="form-group">
                           {% csrf_token %}
                           <label class="col-form-label">Category<em class="text-danger">*</em></label>
                           <input type="text" class="form-control" data-parsley-required="true" name="category">
-                          <input type="hidden" name="csrf_token" data-parsley-required="true" value="c4a6edc470bf3d819b4e783b2afe2f15" readonly="">
                         </div>
                          <div class="form-group">
                           <label class="form-label">Status</label>
@@ -167,7 +169,6 @@
                         <div class="form-group">
                           <label class="col-form-label">Name<em class="text-danger">*</em></label>
                           <input type="text" class="form-control" data-parsley-required="true" id="category" disabled="">
-                          <input type="hidden" name="csrf_token" data-parsley-required="true" value="c4a6edc470bf3d819b4e783b2afe2f15" readonly="">
                           <input type="hidden" id="vcid" name="vcid" data-parsley-required="true" readonly="">
                         </div>
                         <div class="form-group">
@@ -216,25 +217,6 @@
                   <!-- .table -->
                   <div class="table-responsive">
                     <div id="tblModelsList_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                      {% comment %} <div class="row">
-                        <div class="col-sm-12 col-md-6">
-                          <div class="dataTables_length" id="tblModelsList_length">
-                            <label>
-                              Show 
-                              <select name="tblModelsList_length" aria-controls="tblModelsList" class="custom-select">
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                              </select>
-                              entries
-                            </label>
-                          </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                          <div id="tblModelsList_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control" placeholder="" aria-controls="tblModelsList"></label></div>
-                        </div>
-                      </div> {% endcomment %}
                       <div class="table-responsive">
                         <table id="tblModelsList" class="table table-bordered1 dataTable no-footer" role="grid" aria-describedby="tblModelsList_info">
                           <thead>
@@ -246,24 +228,23 @@
                               <th class="text-center nowrap sorting_disabled" rowspan="1" colspan="1" aria-label="#" style="width: 0px;">#</th>
                             </tr>
                           </thead>
-                          {%for item1 , item2 in list%}
+                          {% for item1,item2 in list %}
                           <tbody>
                             <tr role="row" class="odd">
                               <td class="text-center w-10pc sorting_1">{{forloop.counter}}</td>
-                            
                               <td>{{item1.model}}</td>
-                             
-                             <td>{{item2.company}}</td>
-                              
+                              <td>{{item2.company}}</td>
                               <td class=" text-center w-10pc"><span class="badge badge-success">{{item1.status}}</span></td>
-                              
                               <td class=" text-center nowrap">
-                                <a class="mr-1 btn btn-sm btn-icon btn-secondary" data-id="" title="Edit" onclick="updateVM(this);">
-                                <i class="fa fa-pencil-alt" aria-hidden="true"></i>
-                                </a>
-                                <a class="mr-1 btn btn-sm btn-icon btn-secondary" data-id="" title="Remove" onclick="removeVM(this);">
-                                <i class="fa fa-trash-alt text-danger" aria-hidden="true"></i>
-                                </a>
+                                <form method='POST' action="{{item1.id}}">
+                                  {% csrf_token %}
+                                      <a type='submit' href = "{{item1.id}}/edit" class="mr-1 btn btn-sm btn-icon btn-secondary" name="edit" >
+                                        <i class="fa fa-pencil-alt mt-2" aria-hidden="true"></i>
+                                      </a>
+                                     <button type='submit'class="mr-1 btn btn-sm btn-icon btn-secondary" name="delete" >
+                                        <i class="fa fa-trash-alt text-danger" aria-hidden="true"></i>
+                                     </button>
+                                </form>
                               </td>
                             </tr>
                            
@@ -304,17 +285,19 @@
                           {% csrf_token %}
                           <label>Vehicle Make By <abbr title="Required" class="text-danger">*</abbr></label>
                           <select name="vehicle_makeby" data-parsley-required-message="" data-parsley-required="true" class="custom-select select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                          <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-vehicle_makeby-rf-container"><span class="select2-selection__rendered" id="select2-vehicle_makeby-rf-container" title="Choose...">Choose...</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
                             <option>Choose...</option>
                             {%for item in data %}
                             <option value="{{item.company}}">{{item.company}}</option>
                             {%endfor%}
                             
                           </select>
-                          {% comment %} <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-vehicle_makeby-rf-container"><span class="select2-selection__rendered" id="select2-vehicle_makeby-rf-container" title="Choose...">Choose...</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span> {% endcomment %}
+                          
                         </div>
                         <div class="form-group">
                           <label class="col-form-label">Model<em class="text-danger">*</em></label>
                           <input type="text" class="form-control" data-parsley-required="true" name="model">
+                          <input type="hidden" name="csrf_token" data-parsley-required="true" value="c4a6edc470bf3d819b4e783b2afe2f15" readonly="">
                         </div>
                         <div class="form-group">
                           <label class="form-label">Status</label>
@@ -428,19 +411,22 @@
                               <th class="text-center nowrap w-10pc sorting_disabled" rowspan="1" colspan="1" aria-label="#" style="width: 0px;">#</th>
                             </tr>
                           </thead>
-                          {%for item1 in data%}
+                          {%for value in data%}
                           <tbody>
                             <tr role="row" class="odd">
                               <td class="text-center w-10pc nowrap sorting_1">{{forloop.counter}}</td>
-                              <td>{{item1.company}}</td>
-                              <td class=" text-center w-10pc nowrap"><span class="badge badge-success">{{item1.status}}</span></td>
+                              <td>{{value.company}}</td>
+                              <td class=" text-center w-10pc nowrap"><span class="badge badge-success">{{value.status}}</span></td>
                               <td class=" text-center nowrap w-10pc">
-                                <a class="mr-1 btn btn-sm btn-icon btn-secondary" data-id="7" title="Edit" onclick="updateMB(this);">
-                                <i class="fa fa-pencil-alt" aria-hidden="true"></i>
-                                </a>
-                                <a class="mr-1 btn btn-sm btn-icon btn-secondary" data-id="7" title="Remove" onclick="removeMB(this);">
-                                <i class="fa fa-trash-alt text-danger" aria-hidden="true"></i>
-                                </a>
+                                <form method='POST' action="{{value.id}}">
+                                  {% csrf_token %}
+                                    <a type='submit' href = "{{value.id}}/edit" class="mr-1 btn btn-sm btn-icon btn-secondary" name="edit" >
+                                      <i class="fa fa-pencil-alt mt-2" aria-hidden="true"></i>
+                                    </a>
+                                    <button type='submit' class="mr-1 btn btn-sm btn-icon btn-secondary" name="delete" >
+                                      <i class="fa fa-trash-alt text-danger" aria-hidden="true"></i>
+                                    </button>
+                                </form>
                               </td>
                             </tr>
                            </tbody>

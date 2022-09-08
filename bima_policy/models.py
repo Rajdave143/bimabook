@@ -1,10 +1,10 @@
+# Create your models here.
 import uuid
 from djongo import models
 # from django.contrib.auth.models import AbstractUser,User,BaseUserManager,PermissionsMixin
 # from django.contrib.auth import get_user_model
 # from django.urls import reverse
 # from django import forms
-# Create your models here.
 
 # class User(AbstractUser):
 #     class Role(models.TextChoices):
@@ -20,16 +20,12 @@ from djongo import models
 #         if not self.pk:
 #             self.role=self.base_role
 #             return super().save(*args, **kwargs)        
-#     # is_admin=models.BooleanField(default=False)
-#     # is_staff=models.BooleanField(default=False)
-#     # is_agent=models.BooleanField(default=False)
+#     is_admin=models.BooleanField(default=False)
+#     is_staff=models.BooleanField(default=False)
+#     is_agent=models.BooleanField(default=False)
 
-    # class Meta:
-    #     swappable='AUTH_USER_MODEL'
-
-    
-# class PublicId:
-
+#     class Meta:
+#         swappable='AUTH_USER_MODEL'
 
 class ProfileModel(models.Model):
     id = models.CharField(primary_key=True, unique=True, default=uuid.uuid4().hex[:15].upper(), editable=False, max_length=30)
@@ -66,7 +62,7 @@ class StaffModel(models.Model):
 
 class BankDetail(models.Model):
     id = models.CharField(primary_key=True, unique=True, default=uuid.uuid4().hex[:6].upper(), editable=False, max_length=30)
-    profile_id=models.ForeignKey(ProfileModel, on_delete=models.CASCADE )
+    profile_id = models.ForeignKey(ProfileModel, on_delete=models.CASCADE )
     beneficiary_name=models.CharField(max_length=50)
     acc_no = models.CharField(max_length=15)
     bank_name= models.CharField(max_length=50)
@@ -78,7 +74,7 @@ class BankDetail(models.Model):
 
 
 class RtoConversionModel(models.Model):
-    id = models.CharField(primary_key=True, unique=True, default=uuid.uuid4().hex[:6].upper(), editable=False, max_length=30)
+    id = models.CharField(primary_key=True, unique=True, default=uuid.uuid4().hex[:6].upper(), editable = False, max_length=30)
     profile_id = models.ForeignKey(ProfileModel, on_delete=models.CASCADE )
     rto_series = models.CharField(max_length=10)
     rto_return = models.CharField(max_length=10)
@@ -90,7 +86,7 @@ class RtoConversionModel(models.Model):
 
 
 class InsuranceCompany(models.Model):
-    id = models.CharField(primary_key=True, unique=True, default=uuid.uuid4().hex[:6].upper(), editable=False, max_length=30)
+    id = models.CharField(primary_key=True, unique=True, default=uuid.uuid4().hex[:6].upper(), editable = False, max_length=30)
     profile_id = models.ForeignKey(ProfileModel, on_delete=models.CASCADE )
     comp_name = models.CharField(max_length=100)
     status = models.CharField(default='Active', max_length=20)
@@ -99,21 +95,20 @@ class InsuranceCompany(models.Model):
         super(InsuranceCompany, self).save(*args, **kwargs)
 
 class Agents(models.Model):
-    login_id = models.CharField(primary_key=True, unique=True, default=uuid.uuid4().hex[:10].upper(), editable=False, max_length=30)
+    login_id = models.CharField(primary_key=True, unique=True, default=uuid.uuid4().hex[:10].upper(), editable = False, max_length=30)
     profile_id = models.ForeignKey(ProfileModel, on_delete=models.CASCADE )
-    sr_no = models.IntegerField()
-    full_name = models.CharField(max_length=100)
+    full_name = models.CharField(max_length=100,unique=True)
     password = models.CharField(max_length=20)
     mob_no = models.CharField(max_length=12)
     email_id = models.EmailField(max_length=30)
-    address=models.CharField(max_length=100)
+    address = models.CharField(max_length=100)
     state = models.CharField(max_length=30)
     city = models.CharField(max_length=30)
-    slab=models.CharField(max_length=100)
-    GSTIN=models.CharField(max_length=100)
-    PAN=models.CharField(max_length=100)
-    document=models.FileField()
-    status= models.CharField(default='Active', max_length=20)
+    slab = models.CharField(max_length=100)
+    GSTIN = models.CharField(max_length=100)
+    PAN = models.CharField(max_length=100)
+    document = models.FileField()
+    status = models.CharField(default='Active', max_length=20)
     def save(self, *args, **kwargs):
         self.login_id = uuid.uuid4().hex[:10].upper()
         super(Agents, self).save(*args, **kwargs)
@@ -144,45 +139,46 @@ class BrokerCode(models.Model):
 
 
 
-class SLAB(models.Model):
-    slab_name = models.CharField(max_length=50)
-    payout_name = models.CharField(max_length=100)
-    case_type = models.CharField(max_length=100)
-    coverage = models.CharField(max_length=100)
-    fuel_type = models.CharField(max_length=50)
-    CPA = models.CharField(max_length=50)
-    rewards_on = models.CharField(max_length=50)
-    rewards_age = models.IntegerField()
-    self_rewards_on = models.CharField(max_length=50)
-    self_rewards_age = models.IntegerField()
-    status = models.CharField(default='Active',max_length=10)
+class Slab(models.Model):
+    profile_id=models.ForeignKey(ProfileModel,on_delete=models.CASCADE)
+    slab_name = models.CharField(primary_key=True, unique=True, max_length=30)
     def __str__(self):
         return self.slab_name
 
 
 
-class payout(models.Model):
-    payoutid= models.CharField(primary_key=True, unique=True, default=uuid.uuid4().hex[:15].upper(), editable=False, max_length=30)
-    slabid =models.ForeignKey(SLAB,on_delete=models.CASCADE)
+class Payout(models.Model):
+    profile_id = models.ForeignKey(ProfileModel, on_delete=models.CASCADE )
+    payoutid= models.CharField(primary_key=True, unique=True, default=uuid.uuid4().hex[:7].upper(), editable=False, max_length=7)
+    slab_name=models.ForeignKey(Slab,on_delete=models.CASCADE)
     payout_name = models.CharField(max_length=100)
+    status=models.CharField(default='Active',max_length=10)
+    vehicle_category = models.CharField(max_length=50)
+    policy_provider = models.CharField(max_length=50)
+    Insurance_company = models.CharField(max_length=50)
+    vehicle_make_by = models.CharField(max_length=50)
+    rto = models.CharField(max_length=50)
     case_type=models.CharField(max_length=100)
     coverage=models.CharField(max_length=100)
     fuel_type=models.CharField(max_length=50)
-    CPA=models.CharField(max_length=50)
+    cpa=models.CharField(max_length=50)
     rewards_on=models.CharField(max_length=50)
     rewards_age=models.IntegerField()
     self_rewards_on=models.CharField(max_length=50)
     self_rewards_age=models.IntegerField()
-    status=models.CharField(default='Active',max_length=10)
     
     def __str__(self):
         return self.payout_name
-    
+    def save(self, *args, **kwargs):
+        self.payoutbid = uuid.uuid4().hex[:7].upper()
+        super(Payout, self).save(*args, **kwargs)
 
 
 class Policy(models.Model):
-    policyid = models.CharField(primary_key=True, default=uuid.uuid4(), max_length=15, editable=False,unique=True)
-    policy_no = models.IntegerField()
+    policyid= models.CharField(primary_key=True, unique=True, default=uuid.uuid4().hex[:7].upper(), editable=False, max_length=7)
+    # Agent=models.ForeignKey(Agents,on_delete=models.CASCADE)
+    agent_name=models.CharField(max_length=100)
+    policy_no = models.CharField(max_length=50)
     registration_no = models.CharField(max_length=50)
     casetype = models.CharField(max_length=100)
     insurance_comp = models.CharField(max_length=100)
@@ -192,9 +188,8 @@ class Policy(models.Model):
     riskDate= models.DateField()
     CPA=models.CharField(max_length=100)
     insurance=models.FileField(upload_to='media/documents/')
-    previous_policy=models.FileField(upload_to='media/documents/')
-    vehicle_rc=models.FileField(upload_to='media/documents/')
-    agent_name=models.CharField(max_length=100)
+    previous_policy=models.FileField(upload_to='media/documents/',null=True)
+    vehicle_rc=models.FileField(upload_to='media/documents/',null=True)
     customer_name=models.CharField(max_length=100)
     remark=models.CharField(max_length=100)
     OD_premium=models.IntegerField()
@@ -210,16 +205,13 @@ class Policy(models.Model):
     other_info = models.CharField(max_length=50)
     vehicle_fuel_type = models.CharField(max_length=50)
     manufature_year=models.IntegerField()
-    engine_no=models.IntegerField()
-    chasis_no=models.IntegerField()
+    engine_no=models.CharField(max_length=50)
+    chasis_no=models.CharField(max_length=50)
     def __str__(self):
         return self.id
-    
     def save(self, *args, **kwargs):
-        self.id = uuid.uuid4()
+        self.policyid = uuid.uuid4().hex[:7].upper()
         super(Policy, self).save(*args, **kwargs)
-
-
 # class UpcomingRenewal(models.Model):
 #     _id = models.ObjectIdField()
 #     policy_no=models.IntegerField()
@@ -237,31 +229,41 @@ class Policy(models.Model):
 #     status=models.CharField(default='ACTIVE',max_length=10)
 
 class VehicleCategory(models.Model):
+    id = models.CharField(primary_key=True, unique=True, default=uuid.uuid4().hex[:6].upper(), editable=False, max_length=30)
     profile_id = models.ForeignKey(ProfileModel,on_delete=models.CASCADE)
     category = models.CharField(max_length=100)
     status= models.CharField(default='Active', max_length=20)
     def __str__(self):
         return self.category
+    def save(self, *args, **kwargs):
+        self.id = uuid.uuid4().hex[:6].upper()
+        super(VehicleCategory, self).save(*args, **kwargs)
 
 
 
 class VehicleModelName(models.Model):
+    id = models.CharField(primary_key=True, unique=True, default=uuid.uuid4().hex[:6].upper(), editable=False, max_length=30)
     profile_id = models.ForeignKey(ProfileModel,on_delete=models.CASCADE)
     model = models.CharField(max_length=100)
     company=models.CharField(max_length=100)
     status= models.CharField(default='Active', max_length=20)
     def __str__(self):
         return self.model
-
+    def save(self, *args, **kwargs):
+        self.id = uuid.uuid4().hex[:6].upper()
+        super(VehicleModelName, self).save(*args, **kwargs)
 
 
 class VehicleMakeBy(models.Model):
+    id = models.CharField(primary_key=True, unique=True, default=uuid.uuid4().hex[:6].upper(), editable=False, max_length=30)
     profile_id = models.ForeignKey(ProfileModel,on_delete=models.CASCADE)
     company= models.CharField(max_length=100)
     status= models.CharField(default='Active', max_length=20)
     def __str__(self):
         return self.company
-
+    def save(self, *args, **kwargs):
+        self.id = uuid.uuid4().hex[:6].upper()
+        super(VehicleMakeBy, self).save(*args, **kwargs)
 
 
 class InsuranceUpload(models.Model):

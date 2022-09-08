@@ -73,8 +73,8 @@
                       <div>
                         <tbody>
                           <tr role="row" class="odd">
-                            <td class="text-center width-10p sorting_1">{{value.sr_no}}</td>
-                            <td><a href="" title="View">{{value.full_name}}</a></td>
+                            <td class="text-center width-10p sorting_1">{{forloop.counter}}</td>
+                            <td><a href="{% url 'bima_policy:agent_profile' %}" title="View">{{value.full_name}}</a></td>
                             <td>{{value.email_id}}</td>
                             <td>{{value.mob_no}}</td>
                             <td>{{value.city}}</td>
@@ -86,11 +86,11 @@
                         </tbody>
                       </div>
                       {%endfor%}
-                      </table>
+                    </table>
                   </div>
                   <div class="row align-items-center">
                     <div class="col-sm-12 col-md-5">
-                      <div class="dataTables_info" id="tblList_info" role="status" aria-live="polite">Showing 1 to 9 of 9 entries</div>
+                      <div class="dataTables_info" id="tblList_info" role="status" aria-live="polite">Showing 1 to 1 of 1 entries</div>
                     </div>
                     <div class="col-sm-12 col-md-7 d-flex justify-content-end">
                       <div class="dataTables_paginate paging_simple_numbers" id="tblList_paginate">

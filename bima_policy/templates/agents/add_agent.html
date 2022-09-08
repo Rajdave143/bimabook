@@ -30,6 +30,12 @@
             <div class="col">
               <h1 class="page-title"> Agent Form  <small class="text-muted"> All * marks Fields are mandatory. </small></h1>
             </div>
+            
+            {% if error_message %}
+              <div class='alert-danger'>
+                <h3>{{error_message}}</h3>
+              </div>
+            {% endif %}
             <!-- /grid column -->
           </div>
           <!-- /grid row -->
@@ -64,7 +70,7 @@
                           <div class="col-md-6 mb-3">
                             <label>Full Name<abbr title="Required" class="text-danger">*</abbr></label>
                             <input type="text" name="full_name" data-parsley-pattern="^(?:[A-Za-z]+[- ])*[A-Za-z]+$" data-parsley-required="true" class="form-control">
-                            <input type="hidden" name="csrf_token" data-parsley-required="true" value="c0dca97eafbcfaa5346f6b72632dcf17">
+                            
                           </div>
                           <div class="col-md-6 mb-3">
                             <label>Email Id<abbr title="Required" class="text-danger">*</abbr></label>
@@ -139,22 +145,13 @@
                         </div>
                         <div class="form-row">
                           <div class="col-md-4 mb-3">
-                            <label>Agent Slab<abbr title="Required" class="text-danger">*</abbr></label>
-                            <input type="text" class="form-control" name="agent_slab" data-parsley-required="true">
-                            {% comment %} <select name="agent_slab" data-parsley-required="true" data-parsley-required-message="" class="custom-select select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-                              <option value="">Choose</option>
-                              <option value="16">AGENT LIST</option>
-                              <option value="5">GENERAL A</option>
-                              <option value="19">GRADE B</option>
-                              <option value="14">NORMAL</option>
-                              <option value="18">SANDEEP 10%</option>
-                              <option value="13">SLAB A</option>
-                              <option value="21">SLAB A PLUS</option>
-                              <option value="20">SLABA+</option>
-                              <option value="22">SLABN</option>
-                              <option value="15">SPECIAL</option>
+                            <label>Agent Slab<abbr title="Required" class="text-danger">*</abbr></label>  
+                            <select name="agent_slab" class="custom-select select2 select2-hidden-accessible" aria-hidden="true">
+                              <option value="">Choose...</option>
+                              {% for value in Adata %}
+                              <option value="{{value.slab_name}}">{{value.slab_name}}</option>
+                              {% endfor %}
                             </select>
-                            <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-agent_slab-mb-container"><span class="select2-selection__rendered" id="select2-agent_slab-mb-container" title="Choose"></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span> {% endcomment %}
                           </div>
                           <div class="col-md-4 mb-3">
                             <label>GSTIN</label>

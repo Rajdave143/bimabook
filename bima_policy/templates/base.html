@@ -90,6 +90,12 @@
             text-overflow: ellipsis;
             white-space: nowrap;
          }
+         div.agent, div.staff,div.user{
+            display: none;
+            }
+            #agent{
+               display:none;
+            }
       </style>
    </head>
    <body class=" default-skin pace-done">
@@ -252,6 +258,8 @@
                               white-space: nowrap;"></i>
                               <span class="menu-text" style="color:#346cb0;">Upcoming Renewal</span></a> <!-- child menu -->
                         </li>
+
+                        <div class={{request.session.role}}>
                         <li class="menu-item has-child ">
                            <a href="javascript:void(0);" class="menu-link">
                               {% comment %} <span class="menu-icon icofont icofont-money"></span>{% endcomment %}
@@ -282,8 +290,10 @@
                            </ul>
                            <!-- /child menu -->
                         </li>
+                        </div>
                         <!-- /.menu-item -->
-                        <li class="menu-item has-child ">
+                        <div class={{request.session.role}}>
+                        <li class="menu-item has-child " >
                            <a href="javascript:void(0);" class="menu-link">
                               {% comment %} <span
                               class="menu-icon icofont icofont-file-text"></span>  {% endcomment %}
@@ -313,8 +323,10 @@
                               </li>
                            </ul>
                         </li>
+                        </div>
                         <!-- .menu-item -->
                         <!-- .menu-header -->
+                     <div class={{request.session.role}}>
                         <li class="menu-header">Manage </li>
                         <!-- /.menu-header -->
                         <!-- .menu-item -->
@@ -388,6 +400,7 @@
                               <span class="menu-text" style="color:#346cb0">Billing</span></a>
                            <!-- child menu -->
                         </li>
+                     </div>
                         <!-- /.menu-item -->
                      </ul>
                      <!-- /.menu -->

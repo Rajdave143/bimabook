@@ -1,32 +1,7 @@
-# Create your models here.
 import uuid
 from djongo import models
-# from django.contrib.auth.models import AbstractUser,User,BaseUserManager,PermissionsMixin
-# from django.contrib.auth import get_user_model
-# from django.urls import reverse
-# from django import forms
 
-# class User(AbstractUser):
-#     class Role(models.TextChoices):
-#         ADMIN="ADMIN","Admin",
-#         STAFF="STAFF","Staff",
-#         AGENT="AGENT","Agent"
-
-#     base_role=Role.ADMIN
-
-#     role=models.CharField( max_length=50,choices=Role.choices)
-
-#     def save(self,*args, **kwargs):
-#         if not self.pk:
-#             self.role=self.base_role
-#             return super().save(*args, **kwargs)        
-#     is_admin=models.BooleanField(default=False)
-#     is_staff=models.BooleanField(default=False)
-#     is_agent=models.BooleanField(default=False)
-
-#     class Meta:
-#         swappable='AUTH_USER_MODEL'
-
+# Create your models here.
 class ProfileModel(models.Model):
     id = models.CharField(primary_key=True, unique=True, default=uuid.uuid4().hex[:15].upper(), editable=False, max_length=30)
     full_name = models.CharField(max_length=100,unique=True)
@@ -116,6 +91,7 @@ class Agents(models.Model):
 
 
 class ServiceProvider(models.Model):
+    id = models.CharField(primary_key=True, unique=True, default=uuid.uuid4().hex[:6].upper(), editable = False, max_length=30)
     profile_id = models.ForeignKey(ProfileModel,on_delete=models.CASCADE)
     full_name = models.CharField(max_length=100)
     mob_no = models.IntegerField()
@@ -126,14 +102,20 @@ class ServiceProvider(models.Model):
     GSTIN = models.CharField(max_length=100)
     PAN = models.CharField(max_length=100)
     status = models.CharField(default='Active', max_length=20)
+    def save(self, *args, **kwargs):
+        self.id = uuid.uuid4().hex[:6].upper()
+        super(ServiceProvider, self).save(*args, **kwargs)
 
 
 
 class BrokerCode(models.Model):
+    id = models.CharField(primary_key=True, unique=True, default=uuid.uuid4().hex[:6].upper(), editable = False, max_length=30)
     profile_id = models.ForeignKey(ProfileModel,on_delete=models.CASCADE)
     code=models.CharField(max_length=100)
     status=models.CharField(default='Active', max_length=20)
-
+    def save(self, *args, **kwargs):
+        self.id = uuid.uuid4().hex[:6].upper()
+        super(BrokerCode, self).save(*args, **kwargs)
 
 
 
@@ -142,6 +124,7 @@ class BrokerCode(models.Model):
 class Slab(models.Model):
     profile_id=models.ForeignKey(ProfileModel,on_delete=models.CASCADE)
     slab_name = models.CharField(primary_key=True, unique=True, max_length=30)
+    status=models.CharField(default='Active',max_length=10)
     def __str__(self):
         return self.slab_name
 
@@ -170,7 +153,7 @@ class Payout(models.Model):
     def __str__(self):
         return self.payout_name
     def save(self, *args, **kwargs):
-        self.payoutbid = uuid.uuid4().hex[:7].upper()
+        self.payoutid = uuid.uuid4().hex[:7].upper()
         super(Payout, self).save(*args, **kwargs)
 
 
@@ -270,3 +253,10 @@ class InsuranceUpload(models.Model):
     profile_id = models.ForeignKey(ProfileModel,on_delete=models.CASCADE)
     policyid = models.OneToOneField(Policy, verbose_name=('policyid'), primary_key=True, on_delete=models.CASCADE)
     ins_upload=models.FileField(upload_to='media/documents/')
+
+class UserRole(models.Model):
+    user_id = models.CharField(primary_key=True, unique=True, default=uuid.uuid4().hex[:15].upper(), editable=False, max_length=30)
+    profile_id=models.ForeignKey(ProfileModel,blank = True,null=True, on_delete=models.CASCADE)
+    agent = models.ForeignKey(Agents,null=True,blank = True ,on_delete=models.CASCADE)
+    staf=models.ForeignKey(StaffModel,null=True,blank=True, on_delete=models.CASCADE)
+    role = models.CharField(max_length=100, default = 'user')

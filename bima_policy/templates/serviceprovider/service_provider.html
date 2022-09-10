@@ -102,8 +102,11 @@
                                                 {% endif %} {% endcomment %}
                                              </td>
                                              <td class=" text-center nowrap">
-                                                <a href="providers.php?q=HI/C/ooRh8sH2+oRMx+asSqAXQ1sKOP8X8LBqiIbNJottZDaJsVv/ZGfsZ+LHkto0lFK6vN6gVXu2ssTK6Q+l+wDe414oUbAuDaARlb/tVw=" class="mr-1 btn btn-sm btn-icon btn-secondary" title="Edit"><i class="fa fa-pencil-alt"></i></a>
-                                                <button class="btn btn-sm btn-icon btn-secondary" data-action="remove" data-id="3" title="Remove"><i class="text-danger fa fa-trash-alt"></i></button>
+                                                <form method='POST' action="{{value.id}}/delete">
+                                                {% csrf_token %}
+                                                <a href="{{value.id}}/edit" class="mr-2 btn btn-sm btn-icon btn-secondary" name="edit"><i class="fa fa-pencil-alt mt-2"></i></a>
+                                                <button class="btn btn-sm btn-icon btn-secondary" data-action="remove" title="Remove"><i class="text-danger fa fa-trash-alt"></i></button>
+                                                </form>
                                              </td>
                                           </tr>
                                          
@@ -196,11 +199,11 @@
                                              <td>{{value.code}}</td>
                                              <td class=" text-center nowrap w-10pc"><span class="badge badge-success">{{value.status}}</span></td>
                                              <td class=" text-center w-10pc nowrap">
-                                                <a class="mr-1 btn btn-sm btn-icon btn-secondary" data-id="2" title="Edit" onclick="update(this);">
+                                                {% comment %} <a class="mr-1 btn btn-sm btn-icon btn-secondary" data-id="2" title="Edit" onclick="update(this);">
                                                 <i class="fa fa-pencil-alt" aria-hidden="true"></i>
-                                                </a>
-                                                <a class="mr-1 btn btn-sm btn-icon btn-secondary" data-id="2" title="Remove" onclick="remove(this);">
-                                                <i class="fa fa-trash-alt text-danger" aria-hidden="true"></i>
+                                                </a> {% endcomment %}
+                                                <a class="mr-1 btn btn-sm btn-icon btn-secondary" href='broker/{{value.id}}/del' name='delbr'>
+                                                <i class="fa fa-trash-alt text-danger mt-2" aria-hidden="true"></i>
                                                 </a>
                                              </td>
                                           </tr>

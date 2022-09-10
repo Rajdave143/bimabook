@@ -723,23 +723,17 @@
                                                   <td class="text-center"><span class="badge badge-success">OK</span></td>
                                                   <td class="text-center">
                                                    <form method="POST">
-                                                      
-                                                      <a href="{{value.}}" class="mr-1 btn btn-sm btn-icon btn-secondary" name="Edit">
-                                                          <i class="fa fa-pencil-alt"></i>
+                                                      {% csrf_token %}
+                                                      <a href="{%url 'bima_policy:edit_policy' value.policyid %}" class="mr-1 mt-1 btn btn-sm btn-icon btn-secondary" name="Edit">
+                                                          <i class="fa fa-pencil-alt mt-2"></i>
                                                       </a>
                                                       <a 
-                                                         href="{{value.policyid}}/delete"
+                                                         href="{%url 'bima_policy:policy_delete' value.policyid %}"
                                                          name="Remove"
-                                                         class="mr-1 btn btn-sm btn-icon btn-secondary text-danger">
-                                                         <i class="far fa-trash-alt"></i>
+                                                         class="mr-1 mt-1 btn btn-sm btn-icon btn-secondary text-danger">
+                                                         <i class="far fa-trash-alt mt-2"></i>
                                                       </a>
-                                                      <a
-                                                          href="javascript:void(0);"
-                                                          name="cancel"
-                                                          class="btn btn-sm btn-icon btn-secondary text-info"
-                                                      >
-                                                          <i class="fa fa-times"></i>
-                                                      </a>
+                                                   
                                                   </td>
                                               </tr>
                                               {% endfor %}

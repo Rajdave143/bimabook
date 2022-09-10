@@ -85,15 +85,15 @@
                                     <td class=" text-center ">{{value.self_rewards_age}}</td>
                                     <td class=" text-center "><span class="badge badge-success">{{value.status}}</span></td>
                                     <td class=" text-center">
-                                       <a href="index.php?slab=SHUBHAM&amp;payout=35" class="mr-1 btn btn-sm btn-icon btn-secondary" title="Edit">
-                                       <i class="fa fa-pencil-alt" aria-hidden="true"></i>
-                                       </a>
-                                       <a href="index.php?slab=SHUBHAM&amp;payout=35&amp;action=copy" class="mr-1 btn btn-sm btn-icon btn-secondary" title="Copy">
-                                       <i class="fa fa-copy" aria-hidden="true"></i>
-                                       </a>
-                                       <a class="mr-1 btn btn-sm btn-icon btn-secondary" data-id="35" title="Remove" onclick="removePayout(this);">
-                                       <i class="fa fa-trash-alt text-danger" aria-hidden="true"></i>
-                                       </a>
+                                       <form method="post">
+                                          {% csrf_token %}
+                                          <a href="{%url 'bima_policy:payout_edit' value.payoutid %}" class="mr-1 btn btn-sm btn-icon btn-secondary" title="Edit">
+                                          <i class="fa fa-pencil-alt mt-2" aria-hidden="true"></i>
+                                          </a>
+                                          <a href="{%url 'bima_policy:payout_delete' value.payoutid %}" class="mr-1 btn btn-sm btn-icon btn-secondary " title="Remove">
+                                          <i class="fa fa-trash-alt text-danger mt-2" aria-hidden="true"></i>
+                                          </a>
+                                       </form>
                                     </td>
                                  </tr>
                               </tbody>

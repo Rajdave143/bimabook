@@ -71,21 +71,23 @@
                                              </tr>
                                           </thead>
                                           <tbody>
+                                             {%for value in datas%}
                                              <tr role="row" class="odd">
-                                                <td style="text-align:left" class="text-left sorting_1">Rohit</td>
-                                                <td class=" text-center">1</td>
-                                                <td class=" text-center">4,455</td>
-                                                <td class=" text-center">7,000</td>
-                                                <td class=" text-center">11,455</td>
+                                                <td style="text-align:left" class="text-left sorting_1">{{value.agent_name}}</td>
+                                                <td class=" text-center">{{value.count_policy}}</td>
+                                                <td class=" text-center">{{value.OD_premium}}</td>
+                                                <td class=" text-center">{{value.TP_premium}}</td>
+                                                <td class=" text-center">{{value.net}}</td>
                                              </tr>
+                                             {%endfor%}
                                           </tbody>
                                           <tfoot>
                                              <tr>
                                                 <th style="text-align:left" class="text-left" rowspan="1" colspan="1">Grand Total</th>
-                                                <th class="text-center" rowspan="1" colspan="1">1</th>
-                                                <th class="text-center" rowspan="1" colspan="1">4,455</th>
-                                                <th class="text-center" rowspan="1" colspan="1">7,000</th>
-                                                <th class="text-center" rowspan="1" colspan="1">11,455</th>
+                                                <th class="text-center" rowspan="1" colspan="1">{{total_count_policy}}</th>
+                                                <th class="text-center" rowspan="1" colspan="1">{{total_od}}</th>
+                                                <th class="text-center" rowspan="1" colspan="1">{{total_tp}}</th>
+                                                <th class="text-center" rowspan="1" colspan="1">{{total_net}}</th>
                                              </tr>
                                           </tfoot>
                                        </table>

@@ -31,9 +31,9 @@
                             {% csrf_token %}
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label class="col-form-label">Category Name<em class="text-danger">*</em></label>
                                     {%for value in data%}
-                                    <input type="text" class="form-control" data-parsley-required="true" name="category" value="{{value.category}}">
+                                    <label class="col-form-label">Company Name<em class="text-danger">*</em></label>
+                                    <input type="text" class="form-control" data-parsley-required="true" name="company" value="{{value.company}}">
                                     {%endfor%}
                                     <input type="hidden" id="vcid" name="vcid" data-parsley-required="true" readonly="" value="28">
                                 </div>
@@ -47,7 +47,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary w-100p" data-dismiss="modal">Close</button>
-                                <button type="submit" name="vc_update" class="btn btn-primary w-100p">Update</button>
+                                <button type="submit" name="vmb_update" class="btn btn-primary w-100p">Update</button>
                             </div>
                         </form>
                     </div>

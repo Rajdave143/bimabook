@@ -50,21 +50,26 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3 col-sm-12">
-                                       <div class="form-group">
-                                          <select name="sp" id="sp" class="custom-select select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-                                             <option value="">All Service Provider</option>
-                                             <option value="1">BROKER</option>
-                                             <option value="4">Broker Indore</option>
-                                             <option value="2">PolicyBazaar</option>
+                                       
+
+                              
+                                          {% comment %} <label>ALL AGENT<abbr title="Required" class="text-danger">*</abbr></label> {% endcomment %}
+                                          <select name="service_provider" data-parsley-required-message="" class="custom-select" id="service_provider" data-parsley-required="true">
+                                             
+                                             <option value=""> All service provider </option>
+                                             {%for value in datas%}
+                                             <option value={{value.full_name}}>{{value.full_name}}</option>
+                                             {%endfor%}
+                                             {% comment %} <option value="4">Broker Indore</option>
+                                             <option value="2">PolicyBazaar</option> {% endcomment %}
                                           </select>
-                                          <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-sp-container"><span class="select2-selection__rendered" id="select2-sp-container" title="All Service Provider">All Service Provider</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-                                       </div>
+                                       
                                     </div>
                                     <div class="col-md-3 col-sm-12">
                                        <div class="form-group">
                                           <button type="submit" name="search" class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
                                           <button type="submit" class="btn btn-secondary"><i class="icofont icofont-refresh" aria-hidden="true"></i> Reset</button>
-                                          <button type="button" id="download" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i> Download</button>
+                                          <button type="button" onclick="ExportToExcel('xlsx')" id="download" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i> Download</button>
                                        </div>
                                     </div>
                                  </div>
@@ -100,27 +105,29 @@
                                              </tr>
                                           </thead>
                                           <tbody>
+                                             {%for value in data%}
                                              <tr role="row" class="odd">
-                                                <td class="text-center sorting_1">1</td>
-                                                <td>Aug-2022</td>
-                                                <td><a href="https://www.bimabook.in/sp/providers.php?q=HI/C/ooRh8sH2+oRMx+asSfGVKY53MDXTZI2q6PGW1ottZDaJsVv/ZGfsZ+LHkto0lFK6vN6gVXu2ssTK6Q+l+wDe414oUbAuDaARlb/tVw=">Broker indore</a></td>
-                                                <td class="text-center">1</td>
+                                                <td class="text-center sorting_1">{{forloop.counter}}</td>
+                                                <td>{{value.issueDate}}</td>
+                                                <td><a href="">{{value.agent_name}}</a></td>
+                                                <td class="text-center">{{value.total_policy}}</td>
                                                 <td class="text-center">0</td>
-                                                <td class="text-center bg-warning text-dark">1</td>
+                                                <td class="text-center bg-warning text-dark">{{value.ok_policy}}</td>
                                                 <td class="text-center bg-red text-white">0</td>
                                                 <td class="text-center bg-success text-white">0</td>
                                                 <td class="text-center bg-blue text-white">0</td>
                                                 <td class="text-center bg-light text-red">0</td>
                                                 <td class="text-center bg-light"><a href="spay.php?p=4" class="btn btn-sm btn-danger"><i class="icofont icofont-money"></i> Collect</a></td>
                                              </tr>
+                                             {%endfor%}
                                           </tbody>
                                           <tfoot>
                                              <tr>
                                                 <th class="text-center bg-light" rowspan="1" colspan="1">Total</th>
                                                 <th class="bg-light" colspan="2" rowspan="1"></th>
-                                                <th class="text-center bg-light" rowspan="1" colspan="1">1</th>
+                                                <th class="text-center bg-light" rowspan="1" colspan="1">{{grand_policy}}</th>
                                                 <th class="text-center bg-light" rowspan="1" colspan="1">0</th>
-                                                <th class="text-center bg-light" rowspan="1" colspan="1">1</th>
+                                                <th class="text-center bg-light" rowspan="1" colspan="1">{{grand_policy}}</th>
                                                 <th class="text-center bg-light" rowspan="1" colspan="1">0</th>
                                                 <th class="text-center bg-light" rowspan="1" colspan="1">0</th>
                                                 <th class="text-center bg-light" rowspan="1" colspan="1">0</th>
@@ -204,19 +211,7 @@
       <script src="{%static 'js/dataTables.bootstrap.js' %}"></script>
       <script src="{%static 'js/jquery.form.js' %}"></script>
       <script src="{%static 'js/custom.min.js' %}"></script>
-      <script>
-         $(document).ready(function () {
-             setDate('this_month',"#frmDate","#toDate");
-             $("#download").click(function(){
-                 $.redirectPost("download.php",{download:'download_sppayout',frmDate:$("#frmDate").val(),toDate:$("#toDate").val(),sp:$("#sp").val()});
-             });
-             $('#tblLedger').DataTable({
-                 "dom": "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>\n  <'table-responsive'tr>\n        <'row align-items-center'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 d-flex justify-content-end'p>>",
-                 "bLengthChange": false,
-                 "paging": false,
-             });
-         });
-      </script>
+   
       <div class="flatpickr-calendar animate showTimeInput" tabindex="-1">
          <div class="flatpickr-months">
             <span class="flatpickr-prev-month">
@@ -313,4 +308,14 @@
       </div>
    </body>
 </html>
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+<script>
+   function ExportToExcel(type, fn, dl) {
+     var elt = document.getElementById('tblLedger');
+     var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+     return dl ?
+       XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+       XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
+  }
+ </script>
 {%endblock%}

@@ -160,6 +160,7 @@ class Payout(models.Model):
 class Policy(models.Model):
     policyid= models.CharField(primary_key=True, unique=True, default=uuid.uuid4().hex[:7].upper(), editable=False, max_length=7)
     # Agent=models.ForeignKey(Agents,on_delete=models.CASCADE)
+    profile_id = models.ForeignKey(ProfileModel, on_delete=models.CASCADE )
     agent_name=models.CharField(max_length=100)
     policy_no = models.CharField(max_length=50)
     registration_no = models.CharField(max_length=50)

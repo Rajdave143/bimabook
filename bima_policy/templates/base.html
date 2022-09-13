@@ -90,12 +90,10 @@
             text-overflow: ellipsis;
             white-space: nowrap;
          }
-         div.agent, div.staff,div.user{
+         div.agent,div.staff{
             display: none;
             }
-            #agent{
-               display:none;
-            }
+
       </style>
    </head>
    <body class=" default-skin pace-done">
@@ -260,152 +258,146 @@
                         </li>
 
                         <div class={{request.session.role}}>
-                        <li class="menu-item has-child ">
-                           <a href="javascript:void(0);" class="menu-link">
-                              {% comment %} <span class="menu-icon icofont icofont-money"></span>{% endcomment %}
-                              <i class="fa-solid fa-sack-dollar" style="color:#346cb0 ;padding-right: 1.5rem;
-                              overflow: hidden;
-                              text-overflow: ellipsis;
-                              white-space: nowrap;"></i>
-                           
-                              <span class="menu-text" style="color:#346cb0">Ledger</span></a> <!-- child menu -->
-                           <ul class="menu">
-                              <li class="menu-subhead">Ledger</li>
-                              <li class="menu-item ">
-                                 <a href="{%url 'bima_policy:agentpayable' %}"  class="menu-link" tabindex="-1">Agent
-                                 Payable</a>
-                              </li>
-                              <li class="menu-item ">
-                                 <a href="{%url 'bima_policy:agent_statement' %}" class="menu-link"
-                                    tabindex="-1">Agent Statement</a>
-                              </li>
-                              <li class="menu-item ">
-                                 <a href="{%url 'bima_policy:sp_receivable' %}" class="menu-link"
-                                    tabindex="-1">SP Receivable</a>
-                              </li>
-                              <li class="menu-item ">
-                                 <a href="{%url 'bima_policy:sp_statement' %}" class="menu-link"
-                                    tabindex="-1">SP Statement</a>
-                              </li>
-                           </ul>
-                           <!-- /child menu -->
-                        </li>
+                           <li class="menu-item has-child ">
+                              <a href="javascript:void(0);" class="menu-link">
+                                 {% comment %} <span class="menu-icon icofont icofont-money"></span>{% endcomment %}
+                                 <i class="fa-solid fa-sack-dollar" style="color:#346cb0 ;padding-right: 1.5rem;
+                                 overflow: hidden;
+                                 text-overflow: ellipsis;
+                                 white-space: nowrap;"></i>
+                              
+                                 <span class="menu-text" style="color:#346cb0">Ledger</span></a> <!-- child menu -->
+                              <ul class="menu">
+                                 <li class="menu-subhead">Ledger</li>
+                                 <li class="menu-item ">
+                                    <a href="{%url 'bima_policy:agentpayable' %}"  class="menu-link" tabindex="-1">Agent
+                                    Payable</a>
+                                 </li>
+                                 <li class="menu-item ">
+                                    <a href="{%url 'bima_policy:agent_statement' %}" class="menu-link"
+                                       tabindex="-1">Agent Statement</a>
+                                 </li>
+                                 <li class="menu-item ">
+                                    <a href="{%url 'bima_policy:sp_receivable' %}" class="menu-link"
+                                       tabindex="-1">SP Receivable</a>
+                                 </li>
+                                 <li class="menu-item ">
+                                    <a href="{%url 'bima_policy:sp_statement' %}" class="menu-link"
+                                       tabindex="-1">SP Statement</a>
+                                 </li>
+                              </ul>
+                              <!-- /child menu -->
+                           </li>
                         </div>
-                        <!-- /.menu-item -->
                         <div class={{request.session.role}}>
-                        <li class="menu-item has-child " >
-                           <a href="javascript:void(0);" class="menu-link">
-                              {% comment %} <span
-                              class="menu-icon icofont icofont-file-text"></span>  {% endcomment %}
-                              <i class="fa fa-file-text" id="icon"></i>
-                              <span class="menu-text" style="color:#346cb0">Reports</span></a> <!-- child menu -->
-                           <ul class="menu">
-                              <li class="menu-subhead">Reports</li>
-                              <li class="menu-item ">
-                                 <a href="{%url 'bima_policy:report_agent' %}" class="menu-link"
-                                    tabindex="-1">Agent wise</a>
-                              </li>
-                              <li class="menu-item ">
-                                 <a href="{%url 'bima_policy:report_policyprovider' %}"class="menu-link"
-                                    tabindex="-1">Policy Provider wise</a>
-                              </li>
-                              <li class="menu-item ">
-                                 <a href="{%url 'bima_policy:report_vehicleCategory' %}" class="menu-link"
-                                    tabindex="-1">Vehicle Category wise</a>
-                              </li>
-                              <li class="menu-item ">
-                                 <a href="{%url 'bima_policy:report_brokercode' %}" class="menu-link"
-                                    tabindex="-1">Broker Code wise</a>
-                              </li>
-                              <li class="menu-item ">
-                                 <a href="{%url 'bima_policy:report_insurance_comp' %}"class="menu-link"
-                                    tabindex="-1">Insurance Comp. wise</a>
-                              </li>
-                           </ul>
-                        </li>
+                           <li class="menu-item has-child " >
+                              <a href="javascript:void(0);" class="menu-link">
+                                 {% comment %} <span
+                                 class="menu-icon icofont icofont-file-text"></span>  {% endcomment %}
+                                 <i class="fa fa-file-text" id="icon"></i>
+                                 <span class="menu-text" style="color:#346cb0">Reports</span></a> <!-- child menu -->
+                              <ul class="menu">
+                                 <li class="menu-subhead">Reports</li>
+                                 <li class="menu-item ">
+                                    <a href="{%url 'bima_policy:report_agent' %}" class="menu-link"
+                                       tabindex="-1">Agent wise</a>
+                                 </li>
+                                 <li class="menu-item ">
+                                    <a href="{%url 'bima_policy:report_policyprovider' %}"class="menu-link"
+                                       tabindex="-1">Policy Provider wise</a>
+                                 </li>
+                                 <li class="menu-item ">
+                                    <a href="{%url 'bima_policy:report_vehicleCategory' %}" class="menu-link"
+                                       tabindex="-1">Vehicle Category wise</a>
+                                 </li>
+                                 <li class="menu-item ">
+                                    <a href="{%url 'bima_policy:report_brokercode' %}" class="menu-link"
+                                       tabindex="-1">Broker Code wise</a>
+                                 </li>
+                                 <li class="menu-item ">
+                                    <a href="{%url 'bima_policy:report_insurance_comp' %}"class="menu-link"
+                                       tabindex="-1">Insurance Comp. wise</a>
+                                 </li>
+                              </ul>
+                           </li>
                         </div>
-                        <!-- .menu-item -->
-                        <!-- .menu-header -->
-                     <div class={{request.session.role}}>
-                        <li class="menu-header">Manage </li>
-                        <!-- /.menu-header -->
-                        <!-- .menu-item -->
-                        <li class="menu-item ">
-                           <a href="{%url 'bima_policy:agent' %}" class="menu-link">
-                              {% comment %} <span class="menu-icon icofont icofont-users-alt-1"></span>  {% endcomment %}
-                              <i class='fas fa-user-friends' aria-hidden="true" id='icon'></i>
-                              <span class="menu-text" style="color:#346cb0">Agents</span></a> <!-- child menu -->
-                        </li>
-                        <!-- /.menu-item -->
-                        <li class="menu-item ">
-                           <a href="{%url 'bima_policy:slab' %}" class="menu-link">
-                              {% comment %} <span class="menu-icon icofont icofont-book-alt"></span>  {% endcomment %}
-                              <i class="fa-solid fa-book" id='icon'></i>
-                              <span
-                              class="menu-text" style="color:#346cb0">Payouts</span></a> <!-- child menu -->
-                        </li>
-                        <!-- /.menu-item -->
-                        <li class="menu-item ">
-                           <a href="{%url 'bima_policy:service_p' %}" class="menu-link">
-                              {% comment %} <span class="menu-icon icofont icofont-business-man"></span>  {% endcomment %}
-                              <i class='fas fa-user-tie' id='icon'></i>
-                              <span class="menu-text" style="color:#346cb0">Service Provider</span></a> <!-- child menu -->
-                        </li>
-                        <!-- /.menu-item -->
-                        <li class="menu-item ">
-                           <a href="{%url 'bima_policy:vehi' %}" class="menu-link">
-                              {% comment %} <span class="menu-icon icofont icofont-car-alt-4"></span>  {% endcomment %}
-                              <i class="fa fa-car" aria-hidden="true" id='icon'></i>
-                              <span class="menu-text" style="color:#346cb0">Vehicles</span></a>
-                        </li>
-                        <!-- /.menu-item -->
-                        <li class="menu-item ">
-                           <a href="{%url 'bima_policy:ins_comp' %}" class="menu-link">
-                              {% comment %} <span class="menu-icon icofont icofont-building-alt"></span> {% endcomment %}
-                              <i class="fa-solid fa-building" id='icon'></i>
-                              <span class="menu-text" style="color:#346cb0">Insurance Companies</span></a>
-                        </li>
-                        <!-- /.menu-item -->
-                        <li class="menu-item ">
-                           <a href="{%url 'bima_policy:rto'%}" class="menu-link">
-                              {% comment %} <span class="menu-icon icofont icofont-exchange"></span>  {% endcomment %}
-                              <i class="fa fa-exchange" aria-hidden="true" id='icon'></i>
-                              <span class="menu-text" style="color:#346cb0">RTO
-                           Conversion</span></a>
-                        </li>
-                        <!-- /.menu-item -->
-                        <li class="menu-item ">
-                           <a href="{%url 'bima_policy:staff' %}" class="menu-link">
-                              {% comment %} <span class="menu-icon icofont icofont-user-alt-5"></span>  {% endcomment %}
-                              <i class="fa-solid fa-user" id='icon'></i>
-                              <span
-                              class="menu-text" style="color:#346cb0">Users</span></a> <!-- child menu -->
-                        </li>
-                        <!-- /.menu-item -->
-                        <li class="menu-header">Settings </li>
-                        <!-- /.menu-header -->
-                        <li class="menu-item ">
-                           <a href="{%url 'bima_policy:profile'%}" class="menu-link">
-                  
-                              <i class='fa fa-user-circle' id='icon'></i>
-                              <span class="menu-text" style="color:#346cb0">Profile</span></a> <!-- child menu -->
-                        </li>
-                        <!-- /.menu-item -->
-                        <li class="menu-header">Subscription</li>
-                        <!-- /.menu-header -->
-                        <li class="menu-item ">
-                           <a href=" {% url 'bima_policy:subscription' %}" class="menu-link">
-                              {% comment %} <span class="menu-icon icofont-pay"></span> {% endcomment %}
-                              <i class="fas fa-money-bill" id='icon'></i>
-                              <span class="menu-text" style="color:#346cb0">Billing</span></a>
-                           <!-- child menu -->
-                        </li>
-                     </div>
-                        <!-- /.menu-item -->
+                        <div class={{request.session.role}}>
+                           <li class="menu-header">Manage </li>
+                           <!-- /.menu-header -->
+                           <!-- .menu-item -->
+                           <li class="menu-item ">
+                              <a href="{%url 'bima_policy:agent' %}" class="menu-link">
+                                 {% comment %} <span class="menu-icon icofont icofont-users-alt-1"></span>  {% endcomment %}
+                                 <i class='fas fa-user-friends' aria-hidden="true" id='icon'></i>
+                                 <span class="menu-text" style="color:#346cb0">Agents</span></a> <!-- child menu -->
+                           </li>
+                           <!-- /.menu-item -->
+                           <li class="menu-item ">
+                              <a href="{%url 'bima_policy:slab' %}" class="menu-link">
+                                 {% comment %} <span class="menu-icon icofont icofont-book-alt"></span>  {% endcomment %}
+                                 <i class="fa-solid fa-book" id='icon'></i>
+                                 <span
+                                 class="menu-text" style="color:#346cb0">Payouts</span></a> <!-- child menu -->
+                           </li>
+                           <!-- /.menu-item -->
+                           <li class="menu-item ">
+                              <a href="{%url 'bima_policy:service_p' %}" class="menu-link">
+                                 {% comment %} <span class="menu-icon icofont icofont-business-man"></span>  {% endcomment %}
+                                 <i class='fas fa-user-tie' id='icon'></i>
+                                 <span class="menu-text" style="color:#346cb0">Service Provider</span></a> <!-- child menu -->
+                           </li>
+                           <!-- /.menu-item -->
+                           <li class="menu-item ">
+                              <a href="{%url 'bima_policy:vehi' %}" class="menu-link">
+                                 {% comment %} <span class="menu-icon icofont icofont-car-alt-4"></span>  {% endcomment %}
+                                 <i class="fa fa-car" aria-hidden="true" id='icon'></i>
+                                 <span class="menu-text" style="color:#346cb0">Vehicles</span></a>
+                           </li>
+                           <!-- /.menu-item -->
+                           <li class="menu-item ">
+                              <a href="{%url 'bima_policy:ins_comp' %}" class="menu-link">
+                                 {% comment %} <span class="menu-icon icofont icofont-building-alt"></span> {% endcomment %}
+                                 <i class="fa-solid fa-building" id='icon'></i>
+                                 <span class="menu-text" style="color:#346cb0">Insurance Companies</span></a>
+                           </li>
+                           <!-- /.menu-item -->
+                           <li class="menu-item ">
+                              <a href="{%url 'bima_policy:rto'%}" class="menu-link">
+                                 {% comment %} <span class="menu-icon icofont icofont-exchange"></span>  {% endcomment %}
+                                 <i class="fa fa-exchange" aria-hidden="true" id='icon'></i>
+                                 <span class="menu-text" style="color:#346cb0">RTO
+                              Conversion</span></a>
+                           </li>
+                           <!-- /.menu-item -->
+                           <li class="menu-item ">
+                              <a href="{%url 'bima_policy:staff' %}" class="menu-link">
+                                 {% comment %} <span class="menu-icon icofont icofont-user-alt-5"></span>  {% endcomment %}
+                                 <i class="fa-solid fa-user" id='icon'></i>
+                                 <span
+                                 class="menu-text" style="color:#346cb0">Users</span></a> <!-- child menu -->
+                           </li>
+                           <!-- /.menu-item -->
+                           <li class="menu-header">Settings </li>
+                           <!-- /.menu-header -->
+                           <li class="menu-item ">
+                              <a href="{%url 'bima_policy:profile'%}" class="menu-link">
+                     
+                                 <i class='fa fa-user-circle' id='icon'></i>
+                                 <span class="menu-text" style="color:#346cb0">Profile</span></a> <!-- child menu -->
+                           </li>
+                           <!-- /.menu-item -->
+                           <li class="menu-header">Subscription</li>
+                           <!-- /.menu-header -->
+                           <li class="menu-item ">
+                              <a href=" {% url 'bima_policy:subscription' %}" class="menu-link">
+                                 {% comment %} <span class="menu-icon icofont-pay"></span> {% endcomment %}
+                                 <i class="fas fa-money-bill" id='icon'></i>
+                                 <span class="menu-text" style="color:#346cb0">Billing</span></a>
+                              <!-- child menu -->
+                           </li>
+                        </div>
                      </ul>
-                     <!-- /.menu -->
                   </nav>
-                  <!-- /.stacked-menu -->
                   <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
                      <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
                   </div>

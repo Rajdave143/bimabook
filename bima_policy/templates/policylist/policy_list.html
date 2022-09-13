@@ -43,7 +43,7 @@
                      <div class="page-section">
                         <!-- .section-block -->
                         <div class="section-block">
-                           <form id="frminsurance" method="post" enctype="multipart/form-data" class="" autocomplete="off" data-parsley-validate="true" novalidate="">
+                           <form id="frminsurance" method="post" action="{%url 'bima_policy:policy_entry'%}">
                               {%csrf_token%}
                               <div class="row">
                                  <div class="col-lg-9 col-md-9 col-sm-12">
@@ -151,14 +151,14 @@
                                                    </div>
                                                 </div>
                                                 <div class="col-md-4 mb-4">
-                                                   <label>Previous Policy<abbr title="Required" class="text-danger">*</abbr> <small>(Only<strong> PDF &amp; Image </strong>File)</small> </label>
+                                                   <label>Previous Policy<small>(Only<strong> PDF &amp; Image </strong>File)</small> </label>
                                                    <div class="custom-file">
                                                       <input type="file" name="previous_policy" accept=".pdf,image/*" id="previous_policy" class="custom-file-input">
                                                       <label class="custom-file-label" for="document">Choose file</label>
                                                    </div>
                                                 </div>
                                                 <div class="col-md-4 mb-4">
-                                                   <label>Vehicle RC<abbr title="Required" class="text-danger">*</abbr> <small>(Only<strong> PDF &amp; Image </strong>File)</small> </label>
+                                                   <label>Vehicle RC<small>(Only<strong> PDF &amp; Image </strong>File)</small> </label>
                                                    <div class="custom-file">
                                                       <input type="file" name="vehicle_rc" accept=".pdf,image/*" id="vehicle_rc" class="custom-file-input">
                                                       <label class="custom-file-label" for="document">Choose file</label>

@@ -72,7 +72,8 @@
                                                 <div class="col-md-4 mb-4">
                                                    <label for="case_type">Case Type <abbr title="Required" class="text-danger">*</abbr></label>
                                                    <select name="case_type" data-parsley-group="payout" id="case_type" data-parsley-required="true" data-parsley-required-message="" class="custom-select">
-                                                      <option value="">Choose Type...</option>
+                                                      <option class='bg-info text-white' value='{{value.casetype}}'> 
+                                                         {{value.casetype}}</option>
                                                       <option value="Breakin">Breakin</option>
                                                       <option value="New">New</option>
                                                       <option value="Rollover">Rollover</option>
@@ -82,19 +83,19 @@
                                              <div class="form-row">
                                                 <div class="col-md-4 mb-4">
                                                    <label>Insurance Company<abbr title="Required" class="text-danger">*</abbr></label>
-                                                   <select name="ins_company" data-parsley-required-message="" class="custom-select" id="ins_company" data-parsley-required="true">
-                                                      <option value=""> Choose Company... </option>
+                                                   <select name="ins_company" class="custom-select" id="ins_company" data-parsley-required="true">
+                                                      <option class='bg-info text-white' value='{{value.insurance_comp}}'>{{value.insurance_comp}}</option>
                                                       {%for value in datai%}
                                                       <option>{{value.comp_name}}</option>
-                                                      {%endfor%}
-                                                      
+                                                      {%endfor%} 
                                                    </select>
                                                 </div>
                                                 <div class="col-md-4 mb-4">
                                                    <label>Service Provider<abbr title="Required" class="text-danger">*</abbr></label>
                                                    <select name="service_provider" data-parsley-required-message="" class="custom-select" id="service_provider" data-parsley-required="true">
                                                       
-                                                      <option value=""> Choose Provider... </option>
+                                                      <option class='bg-info text-white' value='{{value.sp_name}}'> 
+                                                         {{value.sp_name}}</option>
                                                       {%for value in datasp%}
                                                       <option value={{value.full_name}}>{{value.full_name}}</option>
                                                       {%endfor%}
@@ -104,7 +105,8 @@
                                                 <div class="col-md-4 mb-4">
                                                    <label>Service Provider/Broker Code<abbr title="Required" class="text-danger">*</abbr></label>
                                                    <select name="code" class="custom-select" id="code">
-                                                      <option value=""> Choose Code... </option>
+                                                      <option class='bg-info text-white' value='{{value.sp_brokercode}}'> 
+                                                      {{value.sp_brokercode}}</option>
                                                       {%for value in databc%}
                                                       <option value="{{value.code}}">{{value.code}}</option>
                                                       {%endfor%}
@@ -134,7 +136,8 @@
                                                 <div class="col-md-4 mb-4">
                                                    <label>CPA <abbr title="Required" class="text-danger">*</abbr></label>
                                                    <select name="cpa" data-parsley-group="payout" data-parsley-required="true" data-parsley-required-message="" class="custom-select">
-                                                      <option value="">Choose CPA...</option>
+                                                      <option class='bg-info text-white' value='{{value.CPA}}'> 
+                                                         {{value.CPA}}</option>
                                                       <option value="Yes">Yes</option>
                                                       <option value="No">No</option>
                                                    </select>
@@ -150,16 +153,16 @@
                                                    </div>
                                                 </div>
                                                 <div class="col-md-4 mb-4">
-                                                   <label>Previous Policy<abbr title="Required" class="text-danger">*</abbr> <small>(Only<strong> PDF &amp; Image </strong>File)</small> </label>
+                                                   <label>Previous Policy <small>(Only<strong> PDF &amp; Image </strong>File)</small> </label>
                                                    <div class="custom-file">
-                                                      <input type="file" name="previous_policy" accept=".pdf,image/*" id="previous_policy" class="custom-file-input">
+                                                      <input type="file" name="previous_policy" accept=".pdf,image/" id="previous_policy" class="custom-file-input">
                                                       <label class="custom-file-label" for="document">Choose file</label>
                                                    </div>
                                                 </div>
                                                 <div class="col-md-4 mb-4">
-                                                   <label>Vehicle RC<abbr title="Required" class="text-danger">*</abbr> <small>(Only<strong> PDF &amp; Image </strong>File)</small> </label>
+                                                   <label>Vehicle RC <small>(Only<strong> PDF &amp; Image </strong>File)</small> </label>
                                                    <div class="custom-file">
-                                                      <input type="file" name="vehicle_rc" accept=".pdf,image/*" id="vehicle_rc" class="custom-file-input">
+                                                      <input type="file" name="vehicle_rc" accept=".pdf,image/" id="vehicle_rc" class="custom-file-input">
                                                       <label class="custom-file-label" for="document">Choose file</label>
                                                    </div>
                                                 </div>
@@ -173,8 +176,8 @@
                                                 <div class="col-md-3 mb-4">
                                                    <label>Vehicle Make By <abbr title="Required" class="text-danger">*</abbr></label>
                                                    <select name="vehicle_makeby" data-parsley-required-message="" data-parsley-required="true" class="custom-select ">
-                                                
-                                                      <option value="">Choose...</option>
+                                                      <option class='bg-info text-white' value='{{value.vehicle_makeby}}'> 
+                                                         {{value.vehicle_makeby}}</option>
                                                       {%for value in datamb%}
                                                       <option value="{{value.company}}">{{value.company}}</option>
                                                     {%endfor%}
@@ -182,9 +185,8 @@
                                                 </div>
                                                 <div class="col-md-3 mb-4">
                                                    <label>Vehicle Model <abbr title="Required" class="text-danger">*</abbr></label>
-                                                   <select name="vehicle_model" data-parsley-required-message="" data-parsley-required="true" class="custom-select ">
-                                                      
-                                                      <option value="">Select</option>
+                                                   <select name="vehicle_model" data-parsley-required-message="" data-parsley-required="true" class="custom-select "><option class='bg-info text-white' value='{{value.vehicle_model}}'> 
+                                                      {{value.vehicle_model}}</option>
                                                       {%for value in datavm%}
                                                       <option value="{{value.model}}">{{value.model}}</option>
                                                       {%endfor%}
@@ -193,7 +195,8 @@
                                                 <div class="col-md-3 mb-4">
                                                    <label>Vehicle Category <abbr title="Required" class="text-danger">*</abbr></label>
                                                    <select name="vehicle_category" data-parsley-required-message="" data-parsley-required="true" class="custom-select ">
-                                                      <option value="">Choose Category...</option>
+                                                      <option class='bg-info text-white' value='{{value.vehicle_category}}'> 
+                                                         {{value.vehicle_category}}</option>
 
                                                       {%for value in datavc%}
                                                       <option value="{{value.category}}">{{value.category}}</option>
@@ -208,7 +211,8 @@
                                                 <div class="col-md-3 mb-4">
                                                    <label>Vehicle Fuel Type <abbr title="Required" class="text-danger">*</abbr></label>
                                                    <select name="fuel_type" data-parsley-group="payout" data-parsley-required="true" data-parsley-required-message="" class="custom-select">
-                                                      <option value="">Choose Fuel Type...</option>
+                                                      <option class='bg-info text-white' value='{{value.vehicle_fuel_type}}'> 
+                                                         {{value.vehicle_fuel_type}}</option>
                                                       <option value="Petrol">Petrol</option>
                                                       <option value="Diesel">Diesel</option>
                                                       <option value="CNG">CNG</option>
@@ -218,7 +222,8 @@
                                                 <div class="col-md-3 mb-4">
                                                    <label for="manu_year">Manufacture Year <abbr title="Required" class="text-danger">*</abbr></label>
                                                    <select name="manu_year" data-parsley-required-message="" data-parsley-required="true" class="custom-select">
-                                                      <option value="">Choose Year...</option>
+                                                      <option class='bg-info text-white' value='{{value.manufature_year}}'> 
+                                                         {{value.manufature_year}}</option>
                                                       <option value="2022">2022</option>
                                                       <option value="2021">2021</option>
                                                       <option value="2020">2020</option>
@@ -256,7 +261,8 @@
                                                 <div class="col-md-4 mb-4">
                                                    <label>Agent <abbr title="Required" class="text-danger">*</abbr></label>
                                                    <select name="agent" data-parsley-group="payout" data-parsley-required="true" data-parsley-required-message="" class="custom-select ">
-                                                      <option value="">Select</option>
+                                                      <option class='bg-info text-white' value='{{value.agent_name}}'> 
+                                                         {{value.agent_name}}</option>
                                                       {%for value in datag%}
                                                       <option value="{{value.full_name}}">{{value.full_name}}</option>
                                                       {%endfor%}
@@ -297,6 +303,7 @@
                                           <!-- .card-body -->
                                           <h4 class="card-title mb-3"> Payout Details </h4>
                                           <!-- grid row -->
+                                          {%for value in data%}
                                           <div class="row mb-2">
                                              <label class="col-lg-5" for="od">OD Premium <abbr title="Required" class="text-danger">*</abbr></label><input type="text" data-parsley-group="payout" value="{{value.OD_premium}}" class="form-control col-lg-6 maskNumField" data-mask-as-number-maxlength="10" data-parsley-required="true" data-parsley-required-message="" data-parsley-maxlength="10" data-parsley-pattern="^[0-9]+$" name="od" id="od" maxlength="10">
                                           </div>
@@ -315,6 +322,8 @@
                                           <div class="row mb-2">
                                              <label class="col-lg-5 pr-0">Payment Mode</label>
                                              <select class="custom-select col-lg-6" name="payment_mode">
+                                                <option class='bg-info text-white' value='{{value.payment_mode}}'> 
+                                                   {{value.payment_mode}}</option>
                                                 <option value="Customer Online">Customer Online</option>
                                                 <option value="Self Online">Self Online</option>
                                                 <option value="Cash">Cash</option>
@@ -326,13 +335,15 @@
                                           <div class="row mb-2">
                                              <label class="col-lg-5 pr-0">Policy Type</label>
                                              <select class="custom-select col-lg-6" name="payment_mode" value="{{value.policy_type}}">
-                                                <option value="">Choose </option>
+                                                <option class='bg-info text-white' value='{{value.policy_type}}'> 
+                                                   {{value.policy_type}}</option>
                                                 <option value="Comp">Comp</option>
                                                 <option value="SAOD">SAOD</option>
                                                 <option value="TP">TP</option>
                                              </select>
                                           </div>
                                        </div>
+                                       {%endfor%}
                                        <!-- /.card-body -->
                                     </div>
                                     <!-- /.card -->
